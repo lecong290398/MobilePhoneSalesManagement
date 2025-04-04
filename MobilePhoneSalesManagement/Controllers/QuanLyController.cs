@@ -11,15 +11,11 @@ namespace MobilePhoneSalesManagement.Controllers
     {
         private DienThoaiService _dienThoaiService;
         private HoaDonService _hoaDonService;
-        private KhachHangService _khachHangService;
-        private NhanVienService _nhanVienService;
 
         public QuanLyController()
         {
             _dienThoaiService = new DienThoaiService();
             _hoaDonService = new HoaDonService();
-            _khachHangService = new KhachHangService();
-            _nhanVienService = new NhanVienService();
         }
 
         public void HienThiMenu()
@@ -31,8 +27,6 @@ namespace MobilePhoneSalesManagement.Controllers
                 Console.WriteLine("===== MENU =====");
                 Console.WriteLine("1. Quản lý điện thoại");
                 Console.WriteLine("2. Quản lý hóa đơn");
-                Console.WriteLine("3. Quản lý khách hàng");
-                Console.WriteLine("4. Quản lý nhân viên");
                 Console.WriteLine("0. Thoát");
                 Console.Write("Chọn chức năng: ");
                 string chon = Console.ReadLine();
@@ -45,14 +39,6 @@ namespace MobilePhoneSalesManagement.Controllers
                     case "2":
                         _hoaDonService.NhapDanhSachHoaDon();
                         _hoaDonService.InDanhSachHoaDon();
-                        break;
-                    case "3":
-                        _khachHangService.NhapDanhSachKhachHang();
-                        _khachHangService.InDanhSachKhachHang();
-                        break;
-                    case "4":
-                        _nhanVienService.NhapDanhSachNhanVien();
-                        _nhanVienService.InDanhSachNhanVien();
                         break;
                     case "0":
                         return;
