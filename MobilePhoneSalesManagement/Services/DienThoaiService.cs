@@ -76,25 +76,66 @@ namespace MobilePhoneSalesManagement.Services
         // 1. Thêm điện thoại vào danh sách
         public void ThemDienThoai()
         {
-            Console.WriteLine("Nhập thông tin điện thoại:");
-            Console.Write("Mã: ");
-            string ma = Console.ReadLine();
-            Console.Write("Tên: ");
-            string ten = Console.ReadLine();
-            Console.Write("Hãng: ");
-            string hang = Console.ReadLine();
-            Console.Write("RAM: ");
-            int ram = int.Parse(Console.ReadLine());
-            Console.Write("Dung lượng lưu trữ GB: ");
-            int dungLuongLuuTru = int.Parse(Console.ReadLine());
-            Console.Write("Giá: ");
-            double gia = double.Parse(Console.ReadLine());
-            Console.Write("Số lượng tồn: ");
-            int soLuongTon = int.Parse(Console.ReadLine());
+            bool isAdding = true;
+            while (isAdding)
+            {
+                Console.WriteLine("Nhập thông tin điện thoại:");
+                Console.Write("Mã: ");
+                string ma = Console.ReadLine();
+                Console.Write("Tên: ");
+                string ten = Console.ReadLine();
+                Console.Write("Hãng: ");
+                string hang = Console.ReadLine();
 
-            DienThoai dt = new DienThoai(ma, ten, hang, gia, soLuongTon, ram, dungLuongLuuTru);
-            _dienThoaiList.Add(dt);
-            Console.WriteLine("Điện thoại đã được thêm.");
+                int ram;
+                while (true)
+                {
+                    Console.Write("RAM: ");
+                    if (int.TryParse(Console.ReadLine(), out ram))
+                        break;
+                    Console.WriteLine("Giá trị không hợp lệ. Vui lòng nhập lại.");
+                }
+
+                int dungLuongLuuTru;
+                while (true)
+                {
+                    Console.Write("Dung lượng lưu trữ GB: ");
+                    if (int.TryParse(Console.ReadLine(), out dungLuongLuuTru))
+                        break;
+                    Console.WriteLine("Giá trị không hợp lệ. Vui lòng nhập lại.");
+                }
+
+                double gia;
+                while (true)
+                {
+                    Console.Write("Giá: ");
+                    if (double.TryParse(Console.ReadLine(), out gia))
+                        break;
+                    Console.WriteLine("Giá trị không hợp lệ. Vui lòng nhập lại.");
+                }
+
+                int soLuongTon;
+                while (true)
+                {
+                    Console.Write("Số lượng tồn: ");
+                    if (int.TryParse(Console.ReadLine(), out soLuongTon))
+                        break;
+                    Console.WriteLine("Giá trị không hợp lệ. Vui lòng nhập lại.");
+                }
+
+                DienThoai dt = new DienThoai(ma, ten, hang, gia, soLuongTon, ram, dungLuongLuuTru);
+                _dienThoaiList.Add(dt);
+                Console.WriteLine("Điện thoại đã được thêm.");
+                Console.WriteLine(dt.ToString());
+                Console.WriteLine("\nBạn có muốn thêm điện thoại khác không? (y/n): ");
+                string response = Console.ReadLine();
+                if (response.ToLower() != "y")
+                {
+                    isAdding = false;
+                    Console.Clear();
+                    ProcessMenuDienThoai();
+                }
+            }
         }
 
         // 2. In danh sách điện thoại
@@ -102,18 +143,70 @@ namespace MobilePhoneSalesManagement.Services
         {
             if (_dienThoaiList.Head == null)
             {
-                Console.WriteLine("Danh sách điện thoại rỗng.");
+                Console.WriteLine("X Danh sách điện thoại rỗng.");
                 return;
             }
 
-            Console.WriteLine("\nDanh sách điện thoại:");
+            Console.WriteLine("\n ==== DANH SÁCH ĐIỆN THOẠI ====");
+            Console.WriteLine(new string('-', 110));
+            Console.WriteLine(
+                "Mã".PadRight(10) +
+                "Tên".PadRight(25) +
+                "Hãng".PadRight(15) +
+                "Giá".PadRight(15) +
+                "Số lượng".PadRight(12) +
+                "RAM".PadRight(8) +
+                "Lưu trữ".PadRight(10)
+            );
+            Console.WriteLine(new string('-', 110));
+
             var node = _dienThoaiList.Head;
             while (node != null)
             {
-                Console.WriteLine(node.Data); // In thông tin điện thoại
+                var dt = node.Data;
+                Console.WriteLine(
+                    dt.Ma.PadRight(10) +
+                    dt.Ten.PadRight(25) +
+                    dt.Hang.PadRight(15) +
+                    $"{dt.Gia:N0}".PadRight(15) +
+                    dt.SoLuongTon.ToString().PadRight(12) +
+                    (dt.RAM + " GB").PadRight(8) +
+                    (dt.DungLuongLuuTru + " GB").PadRight(10)
+                );
                 node = node.Next;
             }
+
+            Console.WriteLine(new string('-', 110));
         }
+
+
+        public void InBangDienThoai(DienThoai dt)
+        {
+            Console.WriteLine(new string('-', 110));
+            Console.WriteLine(
+                "Mã".PadRight(10) +
+                "Tên".PadRight(25) +
+                "Hãng".PadRight(15) +
+                "Giá".PadRight(15) +
+                "Số lượng".PadRight(12) +
+                "RAM".PadRight(8) +
+                "Lưu trữ".PadRight(10)
+            );
+            Console.WriteLine(new string('-', 110));
+
+            Console.WriteLine(
+                dt.Ma.PadRight(10) +
+                dt.Ten.PadRight(25) +
+                dt.Hang.PadRight(15) +
+                $"{dt.Gia:N0}".PadRight(15) +
+                dt.SoLuongTon.ToString().PadRight(12) +
+                (dt.RAM + " GB").PadRight(8) +
+                (dt.DungLuongLuuTru + " GB").PadRight(10)
+            );
+
+            Console.WriteLine(new string('-', 110));
+        }
+
 
         // 3. Tìm kiếm điện thoại
         public void TimKiemDienThoai()
@@ -171,9 +264,10 @@ namespace MobilePhoneSalesManagement.Services
             bool found = false;
             while (node != null)
             {
-                if (node.Data.Ma == ma)
+                if (node.Data.Ma.ToLower() == ma.ToLower()) // so sánh chuỗi mà không phân biệt hoa thường
                 {
-                    Console.WriteLine($"Tìm thấy: {node.Data}");
+                    Console.WriteLine($"Tìm thấy điện thoại theo mã {ma}:");
+                    InBangDienThoai(node.Data);
                     found = true;
                     break;
                 }
@@ -197,7 +291,8 @@ namespace MobilePhoneSalesManagement.Services
             {
                 if (node.Data.Ten.Contains(ten, StringComparison.OrdinalIgnoreCase)) // Kiểm tra tên
                 {
-                    Console.WriteLine($"Tìm thấy: {node.Data}");
+                    Console.WriteLine($"Tìm thấy điện thoại theo tên: {ten}");
+                    InBangDienThoai(node.Data);
                     found = true;
                 }
                 node = node.Next;
@@ -220,7 +315,8 @@ namespace MobilePhoneSalesManagement.Services
             {
                 if (node.Data.Hang.Contains(hang, StringComparison.OrdinalIgnoreCase)) // Kiểm tra hãng
                 {
-                    Console.WriteLine($"Tìm thấy: {node.Data}");
+                    Console.WriteLine($"Tìm thấy điện thoại theo hãng: {hang}");
+                    InBangDienThoai(node.Data);
                     found = true;
                 }
                 node = node.Next;
@@ -821,6 +917,7 @@ namespace MobilePhoneSalesManagement.Services
                 }
             }
         }
+
         public void TinhTongSoLuongTonTheoHang()
         {
             Console.Write("Nhập tên hãng cần tính tổng số lượng tồn: ");
@@ -846,7 +943,7 @@ namespace MobilePhoneSalesManagement.Services
             }
             else
             {
-                Console.WriteLine($"❌ Không tìm thấy điện thoại nào thuộc hãng \"{hangX}\".");
+                Console.WriteLine($" Không tìm thấy điện thoại nào thuộc hãng \"{hangX}\".");
             }
         }
 
@@ -871,7 +968,7 @@ namespace MobilePhoneSalesManagement.Services
 
             if (count == 0)
             {
-                Console.WriteLine($"❌ Không có điện thoại nào thuộc hãng \"{hangX}\".");
+                Console.WriteLine($" Không có điện thoại nào thuộc hãng \"{hangX}\".");
             }
             else
             {
@@ -1024,7 +1121,7 @@ namespace MobilePhoneSalesManagement.Services
             bool found = false;
 
             // In header bảng
-            Console.WriteLine("\n📋 Danh sách điện thoại theo hãng: " + hangX);
+            Console.WriteLine("\n Danh sách điện thoại theo hãng: " + hangX);
             Console.WriteLine(new string('-', 110));
             Console.WriteLine(
                 "Mã".PadRight(10) +
@@ -1060,7 +1157,7 @@ namespace MobilePhoneSalesManagement.Services
 
             if (!found)
             {
-                Console.WriteLine("❌ Không có điện thoại nào thuộc hãng này.");
+                Console.WriteLine(" Không có điện thoại nào thuộc hãng này.");
             }
         }
 
@@ -1078,7 +1175,7 @@ namespace MobilePhoneSalesManagement.Services
             var node = _dienThoaiList.Head;
             bool found = false;
 
-            Console.WriteLine("\n📋 Danh sách điện thoại thỏa điều kiện RAM:");
+            Console.WriteLine("\n Danh sách điện thoại thỏa điều kiện RAM:");
             Console.WriteLine(new string('-', 110));
             Console.WriteLine(
                 "Mã".PadRight(10) +
@@ -1119,7 +1216,7 @@ namespace MobilePhoneSalesManagement.Services
 
             if (!found)
             {
-                Console.WriteLine("❌ Không có điện thoại nào thỏa điều kiện RAM.");
+                Console.WriteLine(" Không có điện thoại nào thỏa điều kiện RAM.");
             }
         }
 
@@ -1137,7 +1234,7 @@ namespace MobilePhoneSalesManagement.Services
             var node = _dienThoaiList.Head;
             bool found = false;
 
-            Console.WriteLine("\n📋 Danh sách điện thoại thỏa điều kiện giá:");
+            Console.WriteLine("\n Danh sách điện thoại thỏa điều kiện giá:");
             Console.WriteLine(new string('-', 110));
             Console.WriteLine(
                 "Mã".PadRight(10) +
@@ -1178,7 +1275,7 @@ namespace MobilePhoneSalesManagement.Services
 
             if (!found)
             {
-                Console.WriteLine("❌ Không có điện thoại nào thỏa điều kiện giá.");
+                Console.WriteLine(" Không có điện thoại nào thỏa điều kiện giá.");
             }
         }
 
@@ -1196,7 +1293,7 @@ namespace MobilePhoneSalesManagement.Services
             var node = _dienThoaiList.Head;
             bool found = false;
 
-            Console.WriteLine("\n📋 Danh sách điện thoại theo dung lượng lưu trữ:");
+            Console.WriteLine("\n Danh sách điện thoại theo dung lượng lưu trữ:");
             Console.WriteLine(new string('-', 110));
             Console.WriteLine(
                 "Mã".PadRight(10) +
@@ -1237,7 +1334,7 @@ namespace MobilePhoneSalesManagement.Services
 
             if (!found)
             {
-                Console.WriteLine("❌ Không có điện thoại nào thỏa điều kiện dung lượng.");
+                Console.WriteLine(" Không có điện thoại nào thỏa điều kiện dung lượng.");
             }
         }
 
@@ -1255,7 +1352,7 @@ namespace MobilePhoneSalesManagement.Services
             var node = _dienThoaiList.Head;
             bool found = false;
 
-            Console.WriteLine("\n📋 Danh sách điện thoại theo số lượng tồn:");
+            Console.WriteLine("\n Danh sách điện thoại theo số lượng tồn:");
             Console.WriteLine(new string('-', 110));
             Console.WriteLine(
                 "Mã".PadRight(10) +
@@ -1296,7 +1393,7 @@ namespace MobilePhoneSalesManagement.Services
 
             if (!found)
             {
-                Console.WriteLine("❌ Không có điện thoại nào thỏa điều kiện số lượng tồn.");
+                Console.WriteLine("X Không có điện thoại nào thỏa điều kiện số lượng tồn.");
             }
         }
 
