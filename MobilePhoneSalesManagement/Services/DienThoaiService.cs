@@ -23,6 +23,7 @@ namespace MobilePhoneSalesManagement.Services
                 Console.WriteLine("2. In danh sách điện thoại");
                 Console.WriteLine("3. Tìm kiếm điện thoại");
                 Console.WriteLine("4. Sắp xếp điện thoại");
+                Console.WriteLine("5. Thêm dữ liệu mẫu");
                 Console.WriteLine("0. Quay lại menu chính");
                 Console.Write("Chọn chức năng: ");
                 string chon = Console.ReadLine();
@@ -40,6 +41,9 @@ namespace MobilePhoneSalesManagement.Services
                         break;
                     case "4":
                         this.SapXepDienThoai();
+                        break;
+                    case "5":
+                        this.ThemDuLieuMau();
                         break;
                     case "0":
                         Console.Clear();
@@ -60,6 +64,23 @@ namespace MobilePhoneSalesManagement.Services
                 }
             }
         }
+
+
+        public void ThemDuLieuMau()
+        {
+            _dienThoaiList.Add(new DienThoai("DT01", "iPhone 14", "Apple", 25000000, 15));
+            _dienThoaiList.Add(new DienThoai("DT02", "Galaxy S23", "Samsung", 22000000, 10));
+            _dienThoaiList.Add(new DienThoai("DT03", "Xperia 1 V", "Sony", 21000000, 8));
+            _dienThoaiList.Add(new DienThoai("DT04", "Mi 13 Pro", "Xiaomi", 18000000, 12));
+            _dienThoaiList.Add(new DienThoai("DT05", "OnePlus 11", "OnePlus", 19000000, 7));
+            _dienThoaiList.Add(new DienThoai("DT06", "Pixel 8", "Google", 20000000, 5));
+            _dienThoaiList.Add(new DienThoai("DT07", "Nokia X30", "Nokia", 9000000, 20));
+            _dienThoaiList.Add(new DienThoai("DT08", "Oppo Find X5", "Oppo", 17000000, 9));
+            _dienThoaiList.Add(new DienThoai("DT09", "Vivo X90", "Vivo", 16500000, 11));
+            _dienThoaiList.Add(new DienThoai("DT10", "Realme GT Neo", "Realme", 13000000, 14));
+            Console.WriteLine("Đã thêm 10 điện thoại mẫu vào danh sách.");
+        }
+
 
         // 1. Thêm điện thoại vào danh sách
         public void ThemDienThoai()
