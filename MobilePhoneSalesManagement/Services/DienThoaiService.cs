@@ -1,5 +1,6 @@
 ﻿using MobilePhoneSalesManagement.DataStructures;
 using MobilePhoneSalesManagement.Model;
+using MobilePhoneSalesManagement.Utilities;
 
 namespace MobilePhoneSalesManagement.Services
 {
@@ -11,6 +12,8 @@ namespace MobilePhoneSalesManagement.Services
         {
             _dienThoaiList = new SinglyLinkedList<DienThoai>();
         }
+
+        #region Common
 
         public void ProcessMenuDienThoai()
         {
@@ -26,6 +29,7 @@ namespace MobilePhoneSalesManagement.Services
                 Console.WriteLine("5. Tìm MIN/MAX điện thoại");
                 Console.WriteLine("6. Tính tổng, trung bình, điếm điện thoại");
                 Console.WriteLine("7. Thống kê điện thoại");
+                Console.WriteLine("8. Tạo các điện thoại mẫu - 10 Item điện thoại");
                 Console.WriteLine("0. Quay lại menu chính");
                 Console.Write("Chọn chức năng: ");
                 string chon = Console.ReadLine();
@@ -36,7 +40,7 @@ namespace MobilePhoneSalesManagement.Services
                         this.ThemDienThoai();
                         break;
                     case "2":
-                        this.InDanhSachDienThoai();
+                        InBangDienThoaiList(_dienThoaiList);
                         break;
                     case "3":
                         this.TimKiemDienThoai();
@@ -52,6 +56,9 @@ namespace MobilePhoneSalesManagement.Services
                         break;
                     case "7":
                         ThongKeDienThoai();
+                        break;
+                    case "8":
+                        ThemDuLieuMau();
                         break;
                     case "0":
                         Console.Clear();
@@ -73,23 +80,133 @@ namespace MobilePhoneSalesManagement.Services
             }
         }
 
-
+        //tạo các điện thoại mẫu
         public void ThemDuLieuMau()
         {
-            _dienThoaiList.Add(new DienThoai("DT01", "iPhone 14", "Apple", 25000000, 15));
-            _dienThoaiList.Add(new DienThoai("DT02", "Galaxy S23", "Samsung", 22000000, 10));
-            _dienThoaiList.Add(new DienThoai("DT03", "Xperia 1 V", "Sony", 21000000, 8));
-            _dienThoaiList.Add(new DienThoai("DT04", "Mi 13 Pro", "Xiaomi", 18000000, 12));
-            _dienThoaiList.Add(new DienThoai("DT05", "OnePlus 11", "OnePlus", 19000000, 7));
-            _dienThoaiList.Add(new DienThoai("DT06", "Pixel 8", "Google", 20000000, 5));
-            _dienThoaiList.Add(new DienThoai("DT07", "Nokia X30", "Nokia", 9000000, 20));
-            _dienThoaiList.Add(new DienThoai("DT08", "Oppo Find X5", "Oppo", 17000000, 9));
-            _dienThoaiList.Add(new DienThoai("DT09", "Vivo X90", "Vivo", 16500000, 11));
-            _dienThoaiList.Add(new DienThoai("DT10", "Realme GT Neo", "Realme", 13000000, 14));
-            Console.WriteLine("Đã thêm 10 điện thoại mẫu vào danh sách.");
+            var dienThoaiMoi = new List<DienThoai>
+            {
+                new DienThoai("DT01", "iPhone 14", "Apple", 25000000, 15, 6, 128),
+                new DienThoai("DT02", "Galaxy S23", "Samsung", 22000000, 10, 8, 256),
+                new DienThoai("DT03", "Xperia 1 V", "Sony", 21000000, 8, 12, 256),
+                new DienThoai("DT04", "Mi 13 Pro", "Xiaomi", 18000000, 12, 8, 128),
+                new DienThoai("DT05", "OnePlus 11", "OnePlus", 19000000, 7, 16, 512),
+                new DienThoai("DT06", "Pixel 8", "Google", 20000000, 5, 8, 256),
+                new DienThoai("DT07", "Nokia X30", "Nokia", 9000000, 20, 6, 128),
+                new DienThoai("DT08", "Oppo Find X5", "Oppo", 17000000, 9, 12, 256),
+                new DienThoai("DT09", "Vivo X90", "Vivo", 16500000, 11, 8, 128),
+                new DienThoai("DT10", "Realme GT Neo", "Realme", 13000000, 14, 12, 256),
+                new DienThoai("DT11", "Huawei P50", "Huawei", 23000000, 6, 8, 128),
+                new DienThoai("DT12", "LG Velvet", "LG", 15000000, 10, 8, 256),
+                new DienThoai("DT13", "Asus Zenfone 8", "Asus", 21000000, 9, 16, 512),
+                new DienThoai("DT14", "Motorola Edge 30", "Motorola", 17000000, 7, 8, 128),
+                new DienThoai("DT15", "Xiaomi Mi 11", "Xiaomi", 20000000, 13, 12, 256),
+                new DienThoai("DT16", "iPhone 13", "Apple", 23000000, 18, 6, 128),
+                new DienThoai("DT17", "Galaxy Z Flip 3", "Samsung", 30000000, 6, 8, 256),
+                new DienThoai("DT18", "Realme GT", "Realme", 16000000, 8, 12, 256),
+                new DienThoai("DT19", "Oppo Reno6", "Oppo", 18000000, 9, 8, 128),
+                new DienThoai("DT20", "Vivo V21", "Vivo", 17000000, 7, 8, 128),
+                new DienThoai("DT21", "Nokia 8.3", "Nokia", 19000000, 12, 8, 128),
+                new DienThoai("DT22", "Sony Xperia 10 III", "Sony", 21000000, 8, 8, 128),
+                new DienThoai("DT23", "Infinix Zero X", "Infinix", 16000000, 10, 8, 128),
+                new DienThoai("DT24", "Tecno Camon 17", "Tecno", 14000000, 15, 6, 64),
+                new DienThoai("DT25", "Sharp Aquos R6", "Sharp", 25000000, 6, 12, 128),
+                new DienThoai("DT26", "Google Pixel 6 Pro", "Google", 28000000, 9, 12, 256),
+                new DienThoai("DT27", "Xiaomi Redmi Note 10", "Xiaomi", 13000000, 20, 6, 64),
+                new DienThoai("DT28", "Honor Magic 4", "Honor", 27000000, 5, 8, 128),
+                new DienThoai("DT29", "Samsung Galaxy A52", "Samsung", 18000000, 13, 8, 128),
+                new DienThoai("DT30", "LG G8 ThinQ", "LG", 16000000, 11, 6, 64),
+                new DienThoai("DT31", "Apple iPhone 12", "Apple", 20000000, 14, 6, 128),
+                new DienThoai("DT32", "Huawei Mate 40", "Huawei", 27000000, 8, 12, 512),
+                new DienThoai("DT33", "Asus ROG Phone 5", "Asus", 27000000, 7, 16, 512),
+                new DienThoai("DT34", "Realme 8 Pro", "Realme", 17000000, 10, 8, 128),
+                new DienThoai("DT35", "Xiaomi Poco X3 Pro", "Xiaomi", 15000000, 14, 8, 256),
+                new DienThoai("DT36", "Vivo V23", "Vivo", 19000000, 9, 8, 128),
+                new DienThoai("DT37", "Oppo F19 Pro", "Oppo", 16000000, 8, 8, 128),
+                new DienThoai("DT38", "Nokia 7.2", "Nokia", 15000000, 10, 6, 128),
+                new DienThoai("DT39", "Motorola Moto G100", "Motorola", 20000000, 6, 12, 256),
+                new DienThoai("DT40", "Samsung Galaxy Note 20", "Samsung", 30000000, 5, 8, 512)
+            };
+            // Thêm các điện thoại mẫu vào danh sách nếu chưa tồn tại
+            foreach (var dt in dienThoaiMoi)
+            {
+                _dienThoaiList.Add(dt);
+            }
+            Console.WriteLine($"Điện thoại 40 Item mẫu của đối tượng điện thoại đã được thêm.");
         }
 
+     
 
+        // 2. In danh sách điện thoại List
+        public void InBangDienThoaiList(SinglyLinkedList<DienThoai>? dienThoaiList)
+        {
+            if (_dienThoaiList.Head == null)
+            {
+                Console.WriteLine("X Danh sách điện thoại rỗng.");
+                return;
+            }
+
+            Console.WriteLine("\n=== DANH SÁCH ĐIỆN THOẠI ===");
+            Console.WriteLine(new string('-', 110));
+            Console.WriteLine(
+                "Mã".PadRight(10) +
+                "Tên".PadRight(25) +
+                "Hãng".PadRight(15) +
+                "Giá".PadRight(15) +
+                "Số lượng".PadRight(12) +
+                "RAM".PadRight(8) +
+                "Lưu trữ".PadRight(10)
+            );
+            Console.WriteLine(new string('-', 110));
+
+            var node = dienThoaiList.Head;
+            while (node != null)
+            {
+                var dt = node.Data;
+                Console.WriteLine(
+                    dt.Ma.PadRight(10) +
+                    dt.Ten.PadRight(25) +
+                    dt.Hang.PadRight(15) +
+                    $"{dt.Gia:N0}".PadRight(15) +
+                    dt.SoLuongTon.ToString().PadRight(12) +
+                    (dt.RAM + " GB").PadRight(8) +
+                    (dt.DungLuongLuuTru + " GB").PadRight(10)
+                );
+                node = node.Next;
+            }
+
+            Console.WriteLine(new string('-', 110));
+        }
+
+        public void InBangDienThoai(DienThoai dt)
+        {
+            Console.WriteLine(new string('-', 110));
+            Console.WriteLine(
+                "Mã".PadRight(10) +
+                "Tên".PadRight(25) +
+                "Hãng".PadRight(15) +
+                "Giá".PadRight(15) +
+                "Số lượng".PadRight(12) +
+                "RAM".PadRight(8) +
+                "Lưu trữ".PadRight(10)
+            );
+            Console.WriteLine(new string('-', 110));
+
+            Console.WriteLine(
+                dt.Ma.PadRight(10) +
+                dt.Ten.PadRight(25) +
+                dt.Hang.PadRight(15) +
+                $"{dt.Gia:N0}".PadRight(15) +
+                dt.SoLuongTon.ToString().PadRight(12) +
+                (dt.RAM + " GB").PadRight(8) +
+                (dt.DungLuongLuuTru + " GB").PadRight(10)
+            );
+
+            Console.WriteLine(new string('-', 110));
+        }
+
+        #endregion
+
+        #region Function
         // 1. Thêm điện thoại vào danh sách
         public void ThemDienThoai()
         {
@@ -97,8 +214,21 @@ namespace MobilePhoneSalesManagement.Services
             while (isAdding)
             {
                 Console.WriteLine("Nhập thông tin điện thoại:");
-                Console.Write("Mã: ");
-                string ma = Console.ReadLine();
+                string ma;
+                while (true)
+                {
+                    Console.Write("Mã: ");
+                    ma = Console.ReadLine();
+                    var foundDienThoai = _dienThoaiList.SearchObjectByAttribute(_dienThoaiList, "Ma", ma);
+                    if (foundDienThoai != null)
+                    {
+                        Console.WriteLine("! Mã điện thoại là tồn duy nhất, không trùng lập, vui lòng nhập lại !");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
                 Console.Write("Tên: ");
                 string ten = Console.ReadLine();
                 Console.Write("Hãng: ");
@@ -155,76 +285,6 @@ namespace MobilePhoneSalesManagement.Services
             }
         }
 
-        // 2. In danh sách điện thoại
-        public void InDanhSachDienThoai()
-        {
-            if (_dienThoaiList.Head == null)
-            {
-                Console.WriteLine("X Danh sách điện thoại rỗng.");
-                return;
-            }
-
-            Console.WriteLine("\n ==== DANH SÁCH ĐIỆN THOẠI ====");
-            Console.WriteLine(new string('-', 110));
-            Console.WriteLine(
-                "Mã".PadRight(10) +
-                "Tên".PadRight(25) +
-                "Hãng".PadRight(15) +
-                "Giá".PadRight(15) +
-                "Số lượng".PadRight(12) +
-                "RAM".PadRight(8) +
-                "Lưu trữ".PadRight(10)
-            );
-            Console.WriteLine(new string('-', 110));
-
-            var node = _dienThoaiList.Head;
-            while (node != null)
-            {
-                var dt = node.Data;
-                Console.WriteLine(
-                    dt.Ma.PadRight(10) +
-                    dt.Ten.PadRight(25) +
-                    dt.Hang.PadRight(15) +
-                    $"{dt.Gia:N0}".PadRight(15) +
-                    dt.SoLuongTon.ToString().PadRight(12) +
-                    (dt.RAM + " GB").PadRight(8) +
-                    (dt.DungLuongLuuTru + " GB").PadRight(10)
-                );
-                node = node.Next;
-            }
-
-            Console.WriteLine(new string('-', 110));
-        }
-
-
-        public void InBangDienThoai(DienThoai dt)
-        {
-            Console.WriteLine(new string('-', 110));
-            Console.WriteLine(
-                "Mã".PadRight(10) +
-                "Tên".PadRight(25) +
-                "Hãng".PadRight(15) +
-                "Giá".PadRight(15) +
-                "Số lượng".PadRight(12) +
-                "RAM".PadRight(8) +
-                "Lưu trữ".PadRight(10)
-            );
-            Console.WriteLine(new string('-', 110));
-
-            Console.WriteLine(
-                dt.Ma.PadRight(10) +
-                dt.Ten.PadRight(25) +
-                dt.Hang.PadRight(15) +
-                $"{dt.Gia:N0}".PadRight(15) +
-                dt.SoLuongTon.ToString().PadRight(12) +
-                (dt.RAM + " GB").PadRight(8) +
-                (dt.DungLuongLuuTru + " GB").PadRight(10)
-            );
-
-            Console.WriteLine(new string('-', 110));
-        }
-
-
         // 3. Tìm kiếm điện thoại
         public void TimKiemDienThoai()
         {
@@ -272,80 +332,7 @@ namespace MobilePhoneSalesManagement.Services
             }
         }
 
-        // 3.1 Tìm kiếm theo mã
-        private void TimKiemTheoMa()
-        {
-            Console.Write("Nhập mã điện thoại: ");
-            string ma = Console.ReadLine();
-            var node = _dienThoaiList.Head;
-            bool found = false;
-            while (node != null)
-            {
-                if (node.Data.Ma.ToLower() == ma.ToLower()) // so sánh chuỗi mà không phân biệt hoa thường
-                {
-                    Console.WriteLine($"Tìm thấy điện thoại theo mã {ma}:");
-                    InBangDienThoai(node.Data);
-                    found = true;
-                    break;
-                }
-                node = node.Next;
-            }
-
-            if (!found)
-            {
-                Console.WriteLine("Không tìm thấy điện thoại với mã này.");
-            }
-        }
-
-        // 3.2 Tìm kiếm theo tên
-        private void TimKiemTheoTen()
-        {
-            Console.Write("Nhập tên điện thoại: ");
-            string ten = Console.ReadLine();
-            var node = _dienThoaiList.Head;
-            bool found = false;
-            while (node != null)
-            {
-                if (node.Data.Ten.Contains(ten, StringComparison.OrdinalIgnoreCase)) // Kiểm tra tên
-                {
-                    Console.WriteLine($"Tìm thấy điện thoại theo tên: {ten}");
-                    InBangDienThoai(node.Data);
-                    found = true;
-                }
-                node = node.Next;
-            }
-
-            if (!found)
-            {
-                Console.WriteLine("Không tìm thấy điện thoại với tên này.");
-            }
-        }
-
-        // 3.3 Tìm kiếm theo hãng
-        private void TimKiemTheoHang()
-        {
-            Console.Write("Nhập hãng điện thoại: ");
-            string hang = Console.ReadLine();
-            var node = _dienThoaiList.Head;
-            bool found = false;
-            while (node != null)
-            {
-                if (node.Data.Hang.Contains(hang, StringComparison.OrdinalIgnoreCase)) // Kiểm tra hãng
-                {
-                    Console.WriteLine($"Tìm thấy điện thoại theo hãng: {hang}");
-                    InBangDienThoai(node.Data);
-                    found = true;
-                }
-                node = node.Next;
-            }
-
-            if (!found)
-            {
-                Console.WriteLine("Không tìm thấy điện thoại với hãng này.");
-            }
-        }
-
-        // 4. Sắp xếp điện thoại
+        // 4.  Sắp Xếp điện thoại
         public void SapXepDienThoai()
         {
             var isStop = false;
@@ -363,6 +350,7 @@ namespace MobilePhoneSalesManagement.Services
                 switch (chon)
                 {
                     case "1":
+
                         SapXepTheoMa();
                         break;
                     case "2":
@@ -392,86 +380,129 @@ namespace MobilePhoneSalesManagement.Services
             }
         }
 
+        #endregion
+
+        #region Private Method
+
+        #region 3. Tìm kiếm 
+        // 3.1 Tìm kiếm theo mã
+        public void TimKiemTheoMa()
+        {
+            Console.Write("Nhập mã điện thoại: ");
+            string ma = Console.ReadLine();
+            // Tìm kiếm đối tượng theo mã
+            var foundDienThoai = _dienThoaiList.SearchObjectByAttribute(_dienThoaiList, "Ma", ma);
+            if (foundDienThoai != null)
+            {
+                Console.WriteLine($"Tìm thấy điện thoại với Mã : {ma} ");
+                InBangDienThoai(foundDienThoai);
+            }
+            else
+            {
+                Console.WriteLine($"X Không tìm thấy điện thoại với mã {ma} này.");
+            }
+        }
+
+        // 3.2 Tìm kiếm theo tên
+        private void TimKiemTheoTen()
+        {
+            Console.Write("Nhập tên điện thoại: ");
+            string ten = Console.ReadLine();
+            var foundDienThoai = _dienThoaiList.SearchObjectListByAttributes(_dienThoaiList, "Ten", ten);
+            if (foundDienThoai != null)
+            {
+                Console.WriteLine($"Tìm thấy điện thoại với Tên : {ten} ");
+                InBangDienThoaiList(foundDienThoai);
+            }
+            else
+            {
+                Console.WriteLine($"X Không tìm thấy điện thoại với tên {ten} này.");
+            }
+        }
+
+        // 3.3 Tìm kiếm theo hãng
+        private void TimKiemTheoHang()
+        {
+            Console.Write("Nhập hãng điện thoại: ");
+            string hang = Console.ReadLine();
+            var foundDienThoai = _dienThoaiList.SearchObjectListByAttributes(_dienThoaiList, "Hang", hang);
+            if (foundDienThoai != null)
+            {
+                Console.WriteLine($"Tìm thấy điện thoại với tên Hãng : {hang} ");
+                InBangDienThoaiList(foundDienThoai);
+            }
+            else
+            {
+                Console.WriteLine($"X Không tìm thấy điện thoại với tên Hãng {hang} này.");
+            }
+        }
+
+        private bool ValidateSortOrder()
+        {
+            string input;
+            bool ascending;
+            while (true)
+            {
+                Console.Write("Lựa chọn sắp xếp 0 (Giảm) / 1 (Tăng) : ");
+                input = Console.ReadLine();
+
+                if (input == "1")
+                {
+                    ascending = true;
+                    break;
+                }
+                else if (input == "0")
+                {
+                    ascending = false;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Lựa chọn không hợp lệ! Vui lòng nhập 0 (Giảm) hoặc 1 (Tăng).");
+                }
+            }
+            return ascending;
+        }
+
+        #endregion
+
+        #region 4. Sắp Xếp
+
         // 4.1 Sắp xếp theo mã điện thoại
         public void SapXepTheoMa()
         {
-            // Sắp xếp bằng Bubble Sort
-            bool swapped;
-            do
-            {
-                swapped = false;
-                var current = _dienThoaiList.Head;
-                while (current != null && current.Next != null)
-                {
-                    if (string.Compare(current.Data.Ma, current.Next.Data.Ma) > 0)
-                    {
-                        // Swap dữ liệu giữa current và current.Next
-                        var temp = current.Data;
-                        current.Data = current.Next.Data;
-                        current.Next.Data = temp;
-                        swapped = true;
-                    }
-                    current = current.Next;
-                }
-            } while (swapped);
-
+            var ascending = ValidateSortOrder();
+            var danhSachDienThoai = _dienThoaiList.SortByAttributes(_dienThoaiList, "Ma", ascending);
             Console.WriteLine("Danh sách đã được sắp xếp theo mã điện thoại.");
-            InDanhSachDienThoai();
+            InBangDienThoaiList(danhSachDienThoai);
         }
 
         // 4.2 Sắp xếp theo tên điện thoại
         public void SapXepTheoTen()
         {
-            // Sắp xếp bằng Bubble Sort
-            bool swapped;
-            do
-            {
-                swapped = false;
-                var current = _dienThoaiList.Head;
-                while (current != null && current.Next != null)
-                {
-                    if (string.Compare(current.Data.Ten, current.Next.Data.Ten) > 0)
-                    {
-                        // Swap dữ liệu giữa current và current.Next
-                        var temp = current.Data;
-                        current.Data = current.Next.Data;
-                        current.Next.Data = temp;
-                        swapped = true;
-                    }
-                    current = current.Next;
-                }
-            } while (swapped);
-
+            var ascending = ValidateSortOrder();
+            var danhSachDienThoai = _dienThoaiList.SortByAttributes(_dienThoaiList, "Ten", ascending);
             Console.WriteLine("Danh sách đã được sắp xếp theo tên điện thoại.");
-            InDanhSachDienThoai();
+            InBangDienThoaiList(danhSachDienThoai);
         }
 
         // 4.3 Sắp xếp theo hãng điện thoại
         public void SapXepTheoHang()
         {
-            // Sắp xếp bằng Bubble Sort
-            bool swapped;
-            do
-            {
-                swapped = false;
-                var current = _dienThoaiList.Head;
-                while (current != null && current.Next != null)
-                {
-                    if (string.Compare(current.Data.Hang, current.Next.Data.Hang) > 0)
-                    {
-                        // Swap dữ liệu giữa current và current.Next
-                        var temp = current.Data;
-                        current.Data = current.Next.Data;
-                        current.Next.Data = temp;
-                        swapped = true;
-                    }
-                    current = current.Next;
-                }
-            } while (swapped);
-
+            var ascending = ValidateSortOrder();
+            var danhSachDienThoai = _dienThoaiList.SortByAttributes(_dienThoaiList, "Ten", ascending);
             Console.WriteLine("Danh sách đã được sắp xếp theo hãng điện thoại.");
-            InDanhSachDienThoai();
+            InBangDienThoaiList(danhSachDienThoai);
         }
+
+        #endregion
+
+
+
+
+        #endregion
+
+
 
         // 5. Xóa điện thoại
         public void XoaDienThoai()
@@ -523,32 +554,7 @@ namespace MobilePhoneSalesManagement.Services
         {
             Console.Write("Nhập mã điện thoại cần xoá: ");
             string ma = Console.ReadLine();
-
-            var node = _dienThoaiList.Head;
-            SinglyLinkedList<DienThoai>.Node previousNode = null;
-
-            // Tìm kiếm điện thoại theo mã
-            while (node != null)
-            {
-                if (node.Data.Ma == ma)
-                {
-                    if (previousNode == null)
-                    {
-                        // Nếu là phần tử đầu tiên, thay đổi head
-                        _dienThoaiList.Head = node.Next;
-                    }
-                    else
-                    {
-                        previousNode.Next = node.Next; // Liên kết lại phần tử trước đó
-                    }
-                    Console.WriteLine($"Điện thoại đã được xoá.\n{node.Data}");
-                    return;
-                }
-                previousNode = node;
-                node = node.Next;
-            }
-
-            Console.WriteLine("Không tìm thấy điện thoại với mã này.");
+            _dienThoaiList.RemoveByAttributes(_dienThoaiList, "Ma", ma);
         }
 
         // 5.2 Xoá điện thoại theo tên
@@ -993,7 +999,7 @@ namespace MobilePhoneSalesManagement.Services
                 Console.WriteLine($"\n📈 Giá trung bình của điện thoại hãng \"{hangX}\" là: {trungBinh:N0} VNĐ");
             }
         }
-        
+
         public void DemDienThoaiTheoSoLuongTon_LinhHoat()
         {
             Console.Write("Nhập số lượng tồn tối thiểu (để trống nếu không dùng): ");
@@ -1025,7 +1031,7 @@ namespace MobilePhoneSalesManagement.Services
             Console.WriteLine($"\n🔢 Số điện thoại thỏa điều kiện tồn:");
             Console.WriteLine($"→ Tổng: {count} điện thoại.");
         }
-       
+
         public void DemDienThoaiTheoKhoangGia()
         {
             Console.Write("Nhập giá tối thiểu (triệu VND): ");
