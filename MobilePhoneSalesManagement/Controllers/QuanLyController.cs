@@ -1,4 +1,5 @@
-﻿using MobilePhoneSalesManagement.Services;
+﻿using MobilePhoneSalesManagement.Services.Implements;
+using MobilePhoneSalesManagement.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,13 @@ namespace MobilePhoneSalesManagement.Controllers
         private DienThoaiService _dienThoaiService;
         private HoaDonService _hoaDonService;
 
-        public QuanLyController()
+        public QuanLyController() // Add IFileService as a parameter
         {
-            _dienThoaiService = new DienThoaiService();
+            // Initialize the file service
+            IFileService fileService = new FileService();
+            IScenarioService scenarioService = new ScenarioService();
+
+            _dienThoaiService = new DienThoaiService(fileService, scenarioService); // Pass fileService to the constructor
             _hoaDonService = new HoaDonService();
         }
 

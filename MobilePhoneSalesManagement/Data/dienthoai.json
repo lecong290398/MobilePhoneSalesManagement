@@ -1,0 +1,371 @@
+[
+  {
+    "Ma": "DT01",
+    "Ten": "iPhone 14",
+    "Hang": "Apple",
+    "Gia": 25000000.0,
+    "SoLuongTon": 15,
+    "RAM": 6,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT02",
+    "Ten": "Galaxy S23",
+    "Hang": "Samsung",
+    "Gia": 22000000.0,
+    "SoLuongTon": 10,
+    "RAM": 8,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT03",
+    "Ten": "Xperia 1 V",
+    "Hang": "Sony",
+    "Gia": 21000000.0,
+    "SoLuongTon": 8,
+    "RAM": 12,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT04",
+    "Ten": "Mi 13 Pro",
+    "Hang": "Xiaomi",
+    "Gia": 18000000.0,
+    "SoLuongTon": 12,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT05",
+    "Ten": "OnePlus 11",
+    "Hang": "OnePlus",
+    "Gia": 19000000.0,
+    "SoLuongTon": 7,
+    "RAM": 16,
+    "DungLuongLuuTru": 512
+  },
+  {
+    "Ma": "DT06",
+    "Ten": "Pixel 8",
+    "Hang": "Google",
+    "Gia": 20000000.0,
+    "SoLuongTon": 5,
+    "RAM": 8,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT07",
+    "Ten": "Nokia X30",
+    "Hang": "Nokia",
+    "Gia": 9000000.0,
+    "SoLuongTon": 20,
+    "RAM": 6,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT08",
+    "Ten": "Oppo Find X5",
+    "Hang": "Oppo",
+    "Gia": 17000000.0,
+    "SoLuongTon": 9,
+    "RAM": 12,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT09",
+    "Ten": "Vivo X90",
+    "Hang": "Vivo",
+    "Gia": 16500000.0,
+    "SoLuongTon": 11,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT10",
+    "Ten": "Realme GT Neo",
+    "Hang": "Realme",
+    "Gia": 13000000.0,
+    "SoLuongTon": 14,
+    "RAM": 12,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT11",
+    "Ten": "Huawei P50",
+    "Hang": "Huawei",
+    "Gia": 23000000.0,
+    "SoLuongTon": 6,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT12",
+    "Ten": "LG Velvet",
+    "Hang": "LG",
+    "Gia": 15000000.0,
+    "SoLuongTon": 10,
+    "RAM": 8,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT13",
+    "Ten": "Asus Zenfone 8",
+    "Hang": "Asus",
+    "Gia": 21000000.0,
+    "SoLuongTon": 9,
+    "RAM": 16,
+    "DungLuongLuuTru": 512
+  },
+  {
+    "Ma": "DT14",
+    "Ten": "Motorola Edge 30",
+    "Hang": "Motorola",
+    "Gia": 17000000.0,
+    "SoLuongTon": 7,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT15",
+    "Ten": "Xiaomi Mi 11",
+    "Hang": "Xiaomi",
+    "Gia": 20000000.0,
+    "SoLuongTon": 13,
+    "RAM": 12,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT16",
+    "Ten": "iPhone 13",
+    "Hang": "Apple",
+    "Gia": 23000000.0,
+    "SoLuongTon": 18,
+    "RAM": 6,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT17",
+    "Ten": "Galaxy Z Flip 3",
+    "Hang": "Samsung",
+    "Gia": 30000000.0,
+    "SoLuongTon": 6,
+    "RAM": 8,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT18",
+    "Ten": "Realme GT",
+    "Hang": "Realme",
+    "Gia": 16000000.0,
+    "SoLuongTon": 8,
+    "RAM": 12,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT19",
+    "Ten": "Oppo Reno6",
+    "Hang": "Oppo",
+    "Gia": 18000000.0,
+    "SoLuongTon": 9,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT20",
+    "Ten": "Vivo V21",
+    "Hang": "Vivo",
+    "Gia": 17000000.0,
+    "SoLuongTon": 7,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT21",
+    "Ten": "Nokia 8.3",
+    "Hang": "Nokia",
+    "Gia": 19000000.0,
+    "SoLuongTon": 12,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT22",
+    "Ten": "Sony Xperia 10 III",
+    "Hang": "Sony",
+    "Gia": 21000000.0,
+    "SoLuongTon": 8,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT23",
+    "Ten": "Infinix Zero X",
+    "Hang": "Infinix",
+    "Gia": 16000000.0,
+    "SoLuongTon": 10,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT24",
+    "Ten": "Tecno Camon 17",
+    "Hang": "Tecno",
+    "Gia": 14000000.0,
+    "SoLuongTon": 15,
+    "RAM": 6,
+    "DungLuongLuuTru": 64
+  },
+  {
+    "Ma": "DT25",
+    "Ten": "Sharp Aquos R6",
+    "Hang": "Sharp",
+    "Gia": 25000000.0,
+    "SoLuongTon": 6,
+    "RAM": 12,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT26",
+    "Ten": "Google Pixel 6 Pro",
+    "Hang": "Google",
+    "Gia": 28000000.0,
+    "SoLuongTon": 9,
+    "RAM": 12,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT27",
+    "Ten": "Xiaomi Redmi Note 10",
+    "Hang": "Xiaomi",
+    "Gia": 13000000.0,
+    "SoLuongTon": 20,
+    "RAM": 6,
+    "DungLuongLuuTru": 64
+  },
+  {
+    "Ma": "DT28",
+    "Ten": "Honor Magic 4",
+    "Hang": "Honor",
+    "Gia": 27000000.0,
+    "SoLuongTon": 5,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT29",
+    "Ten": "Samsung Galaxy A52",
+    "Hang": "Samsung",
+    "Gia": 18000000.0,
+    "SoLuongTon": 13,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT30",
+    "Ten": "LG G8 ThinQ",
+    "Hang": "LG",
+    "Gia": 16000000.0,
+    "SoLuongTon": 11,
+    "RAM": 6,
+    "DungLuongLuuTru": 64
+  },
+  {
+    "Ma": "DT31",
+    "Ten": "Apple iPhone 12",
+    "Hang": "Apple",
+    "Gia": 20000000.0,
+    "SoLuongTon": 14,
+    "RAM": 6,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT32",
+    "Ten": "Huawei Mate 40",
+    "Hang": "Huawei",
+    "Gia": 27000000.0,
+    "SoLuongTon": 8,
+    "RAM": 12,
+    "DungLuongLuuTru": 512
+  },
+  {
+    "Ma": "DT33",
+    "Ten": "Asus ROG Phone 5",
+    "Hang": "Asus",
+    "Gia": 27000000.0,
+    "SoLuongTon": 7,
+    "RAM": 16,
+    "DungLuongLuuTru": 512
+  },
+  {
+    "Ma": "DT34",
+    "Ten": "Realme 8 Pro",
+    "Hang": "Realme",
+    "Gia": 17000000.0,
+    "SoLuongTon": 10,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT35",
+    "Ten": "Xiaomi Poco X3 Pro",
+    "Hang": "Xiaomi",
+    "Gia": 15000000.0,
+    "SoLuongTon": 14,
+    "RAM": 8,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT36",
+    "Ten": "Vivo V23",
+    "Hang": "Vivo",
+    "Gia": 19000000.0,
+    "SoLuongTon": 9,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT37",
+    "Ten": "Oppo F19 Pro",
+    "Hang": "Oppo",
+    "Gia": 16000000.0,
+    "SoLuongTon": 8,
+    "RAM": 8,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT38",
+    "Ten": "Nokia 7.2",
+    "Hang": "Nokia",
+    "Gia": 15000000.0,
+    "SoLuongTon": 10,
+    "RAM": 6,
+    "DungLuongLuuTru": 128
+  },
+  {
+    "Ma": "DT39",
+    "Ten": "Motorola Moto G100",
+    "Hang": "Motorola",
+    "Gia": 20000000.0,
+    "SoLuongTon": 6,
+    "RAM": 12,
+    "DungLuongLuuTru": 256
+  },
+  {
+    "Ma": "DT40",
+    "Ten": "Samsung Galaxy Note 20",
+    "Hang": "Samsung",
+    "Gia": 30000000.0,
+    "SoLuongTon": 5,
+    "RAM": 8,
+    "DungLuongLuuTru": 512
+  },
+  {
+    "Ma": "Le",
+    "Ten": "123",
+    "Hang": "12",
+    "Gia": 2323232.0,
+    "SoLuongTon": 11,
+    "RAM": 21,
+    "DungLuongLuuTru": 333
+  }
+]
