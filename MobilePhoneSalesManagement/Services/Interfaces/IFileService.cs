@@ -31,13 +31,7 @@ namespace MobilePhoneSalesManagement.Services.Interfaces
         /// <param name="keyProperty">Tên thuộc tính khóa (ví dụ: "Ma").</param>
         /// <param name="keyValue">Giá trị thuộc tính khóa cần tìm.</param>
         /// <param name="filePath">Đường dẫn tới tệp JSON chứa danh sách.</param>
-        void Update<T>(T newItem, string keyProperty, string keyValue, string filePath);
-        /// <summary>
-        /// Xóa một đối tượng trong file JSON
-        /// </summary>
-        /// <typeparam name="T">Kiểu dữ liệu của đối tượng</typeparam>
-        /// <param name="keyValue">Giá trị khóa để tìm kiếm</param>
-        /// <param name="filePath">Đường dẫn đến file JSON</param>
-        void Delete<T>(T data, string filePath);
+        void Update<T>(T data, string filePath, string keyProperty, string keyValue);
+        bool Delete<T>(T data, string filePath, string keyProperty, string keyValue);
     }
 }

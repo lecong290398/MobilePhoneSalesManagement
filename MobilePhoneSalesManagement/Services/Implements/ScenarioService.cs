@@ -386,68 +386,92 @@ namespace MobilePhoneSalesManagement.Services.Implements
         }
 
         /// <summary>
-        /// Tính giá trị trung bình của thuộc tính truyền vào
+        /// Tính trung bình cho thuộc tính trong danh sách liên kết đơn dựa trên điều kiện cho trước.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list">Danh sách cần xử lý</param>
-        /// <param name="propertyName">Thuộc tính cần tính trung bình</param>
-        /// <param name="targetValue">Giá trị cần so sánh</param>
-        /// <returns>Giá trị trung bình</returns>
-        public double AverageByAttributes<T>(SinglyLinkedList<T> list, string propertyName, object targetValue)
+        /// <typeparam name="T">Kiểu của đối tượng trong danh sách (SinglyLinkedList).</typeparam>
+        /// <param name="list">Danh sách đối tượng.</param>
+        /// <param name="propertyName">Tên thuộc tính cần tính trung bình.</param>
+        /// <param name="targetValue">Giá trị thuộc tính để so sánh.</param>
+        /// <param name="targetValueAverage">Giá trị thuộc tính cần tính trung bình (thực hiện với giá trị này).</param>
+        /// <returns>Trung bình giá trị của thuộc tính.</returns>
+        public double AverageByAttributes<T>(SinglyLinkedList<T> list, string propertyName, object targetValue, string propertyAverage)
         {
             if (list == null || list.Head == null) return 0;
 
+            // Lấy thông tin thuộc tính theo tên propertyName
             var property = typeof(T).GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
             if (property == null) return 0;
+
+            // Lấy thông tin thuộc tính cần tính trung bình
+            var averageProperty = typeof(T).GetProperty(propertyAverage, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+            if (averageProperty == null) return 0;
 
             int count = 0;
             double total = 0;
             var node = list.Head;
 
+            // Duyệt qua danh sách và tính trung bình cho thuộc tính nếu thỏa mãn điều kiện
             while (node != null)
             {
                 var value = property.GetValue(node.Data);
                 if (value != null && value.Equals(targetValue))
                 {
-                    total += Convert.ToDouble(value);
-                    count++;
+                    var averageValue = averageProperty.GetValue(node.Data);
+                    if (averageValue != null)
+                    {
+                        total += Convert.ToDouble(averageValue);
+                        count++;
+                    }
                 }
                 node = node.Next;
             }
 
+            // Trả về trung bình, nếu không có phần tử nào thỏa mãn điều kiện, trả về 0
             return count > 0 ? total / count : 0;
         }
 
         /// <summary>
-        /// Tính tổng giá trị của thuộc tính truyền vào
+        /// Tính tổng cho thuộc tính trong danh sách liên kết đơn dựa trên điều kiện cho trước.
         /// </summary>
-        /// <param name="list">Danh sách cần xử lý</param>
-        /// <param name="propertyName">Thuộc tính cần tính tổng</param>
-        /// <param name="targetValue">Giá trị cần so sánh</param>
-        /// <returns>Giá trị tổng</returns>
-       // Tính tổng theo thuộc tính có giá trị bằng targetValue
-        public double SumByAttributes<T>(SinglyLinkedList<T> list, string propertyName, object targetValue)
+        /// <typeparam name="T">Kiểu của đối tượng trong danh sách (SinglyLinkedList).</typeparam>
+        /// <param name="list">Danh sách đối tượng.</param>
+        /// <param name="propertyName">Tên thuộc tính cần so sánh với giá trị mục tiêu.</param>
+        /// <param name="targetValue">Giá trị thuộc tính để so sánh.</param>
+        /// <param name="propertySum">Tên thuộc tính cần tính tổng.</param>
+        /// <returns>Tổng giá trị của thuộc tính cần tính.</returns>
+        public int SumByAttributes<T>(SinglyLinkedList<T> list, string propertyName, object targetValue, string propertySum)
         {
             if (list == null || list.Head == null) return 0;
 
+            // Lấy thông tin thuộc tính cần so sánh (propertyName)
             var property = typeof(T).GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
             if (property == null) return 0;
 
-            double total = 0;
+            // Lấy thông tin thuộc tính cần tính tổng (propertySum)
+            var sumProperty = typeof(T).GetProperty(propertySum, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+            if (sumProperty == null) return 0;
+
+            int total = 0;
             var node = list.Head;
 
+            // Duyệt qua danh sách và tính tổng thuộc tính propertySum nếu thuộc tính propertyName thỏa mãn điều kiện
             while (node != null)
             {
                 var value = property.GetValue(node.Data);
                 if (value != null && value.Equals(targetValue))
                 {
-                    total += Convert.ToDouble(value);
+                    var sumValue = sumProperty.GetValue(node.Data);
+                    if (sumValue != null)
+                    {
+                        total += Convert.ToInt32(sumValue);
+                    }
                 }
                 node = node.Next;
             }
 
             return total;
         }
+
 
 
         /// <summary>

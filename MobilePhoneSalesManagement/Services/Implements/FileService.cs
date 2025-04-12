@@ -17,7 +17,7 @@ namespace MobilePhoneSalesManagement.Services.Implements
         public FileService()
         {
         }
-     
+
         public void Add<T>(T item, string filePath)
         {
             try
@@ -86,38 +86,68 @@ namespace MobilePhoneSalesManagement.Services.Implements
             SaveToJsonFile(list, filePath);
         }
 
-        public void Delete<T>(T data, string filePath)
+        /// <summary>
+        /// Xóa đối tượng khỏi danh sách dựa trên thuộc tính khóa và giá trị khóa, và lưu lại vào tệp JSON.
+        /// </summary>
+        /// <typeparam name="T">Kiểu của đối tượng trong danh sách (SinglyLinkedList).</typeparam>
+        /// <param name="data">Đối tượng cần xóa (có thể bỏ qua, sẽ được tìm theo keyProperty và keyValue).</param>
+        /// <param name="filePath">Đường dẫn đến tệp JSON.</param>
+        /// <param name="keyProperty">Tên thuộc tính khóa để tìm đối tượng cần xóa.</param>
+        /// <param name="keyValue">Giá trị của thuộc tính khóa cần xóa.</param>
+        /// <returns>Trả về true nếu xóa thành công, false nếu không tìm thấy đối tượng.</returns>
+        public bool Delete<T>(T data, string filePath, string keyProperty, string keyValue)
         {
+            // Tải danh sách từ file JSON
             var list = LoadFromJsonFile<T>(filePath);
-            var newList = new SinglyLinkedList<T>();
+            if (list == null || list.Head == null)
+            {
+                Console.WriteLine("Danh sách rỗng hoặc không hợp lệ.");
+                return false;
+            }
+
             var current = list.Head;
-
             bool found = false;
+            var prop = typeof(T).GetProperty(keyProperty, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
 
+            // Duyệt qua danh sách để tìm đối tượng cần xóa theo keyProperty và keyValue
             while (current != null)
             {
-                // So sánh toàn bộ đối tượng bằng Equals
-                if (!current.Data.Equals(data))
-                {
-                    newList.Add(current.Data);
-                }
-                else
+                // Lấy thông tin thuộc tính khóa
+
+                if (prop != null && prop.GetValue(current.Data)?.ToString() == keyValue)
                 {
                     found = true;
+                    break; // Đã tìm thấy và thoát khỏi vòng lặp
                 }
 
                 current = current.Next;
             }
 
-            SaveToJsonFile(newList, filePath);
-
             if (found)
             {
-                Console.WriteLine(" Đã xóa đối tượng ra khỏi file.");
+                // Tạo danh sách mới bỏ qua phần tử bị xóa
+                var newList = new SinglyLinkedList<T>();
+                current = list.Head;
+
+                while (current != null)
+                {
+                    // Nếu không phải phần tử cần xóa, thêm vào danh sách mới
+                    if (prop != null && prop.GetValue(current.Data)?.ToString() != keyValue)
+                    {
+                        newList.Add(current.Data);
+                    }
+                    current = current.Next;
+                }
+
+                // Lưu danh sách mới vào tệp JSON
+                SaveToJsonFile(newList, filePath);
+                Console.WriteLine("Đã xóa đối tượng ra khỏi file.");
+                return true;
             }
             else
             {
                 Console.WriteLine("X Không tìm thấy đối tượng để xóa.");
+                return false;
             }
         }
 

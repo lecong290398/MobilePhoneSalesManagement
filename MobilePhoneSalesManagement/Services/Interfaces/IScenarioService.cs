@@ -17,8 +17,8 @@ namespace MobilePhoneSalesManagement.Services.Interfaces
         T FindMinByAttributes<T>(SinglyLinkedList<T> list, string propertyName);
         T FindMaxByAttributes<T>(SinglyLinkedList<T> list, string propertyName);
         int CountByAttributes<T>(SinglyLinkedList<T> list, string propertyName, object targetValue);
-        double AverageByAttributes<T>(SinglyLinkedList<T> list, string propertyName, object targetValue);
-        double SumByAttributes<T>(SinglyLinkedList<T> list, string propertyName, object targetValue);
+        double AverageByAttributes<T>(SinglyLinkedList<T> list, string propertyName, object targetValue, string propertyAverage);
+        int SumByAttributes<T>(SinglyLinkedList<T> list, string propertyName, object targetValue, string propertySum);
         int CountByRange<T>(SinglyLinkedList<T> list, string propertyName, double min, double max);
         Dictionary<string, int> CountByGroup<T>(SinglyLinkedList<T> list, string propertyName);
         Dictionary<string, double> SumByGroup<T>(SinglyLinkedList<T> list, string groupByProperty, string sumProperty);
