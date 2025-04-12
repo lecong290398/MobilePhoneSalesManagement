@@ -2,12 +2,12 @@
 using MobilePhoneSalesManagement.Services.Implements;
 using MobilePhoneSalesManagement.Services.Interfaces;
 
-// Tạo đối tượng DienThoaiService để truyền vào QuanLyController
+// Tạo đối tượng PhoneService để truyền vào QuanLyController
 IFileService fileService = new FileService();
 IScenarioService scenarioService = new ScenarioService();
-IDienThoaiService dienThoaiService = new DienThoaiService(fileService, scenarioService);
+IPhoneService dienThoaiService = new PhoneService(fileService, scenarioService);
 
-// Tạo đối tượng QuanLyController và truyền DienThoaiService vào
+// Tạo đối tượng QuanLyController và truyền PhoneService vào
 QuanLyController controller = new QuanLyController(dienThoaiService);
 // Gọi phương thức HienThiMenu
 controller.HienThiMenu();

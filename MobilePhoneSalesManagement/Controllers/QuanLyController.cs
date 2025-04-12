@@ -10,9 +10,9 @@ namespace MobilePhoneSalesManagement.Controllers
 {
     public class QuanLyController
     {
-        private IDienThoaiService _dienThoaiService;
+        private IPhoneService _dienThoaiService;
 
-        public QuanLyController(IDienThoaiService dienThoaiService)
+        public QuanLyController(IPhoneService dienThoaiService)
         {
             _dienThoaiService = dienThoaiService;
         }
@@ -75,16 +75,16 @@ namespace MobilePhoneSalesManagement.Controllers
                 switch (chon)
                 {
                     case "1":
-                        _dienThoaiService.ThemDienThoai();
+                        _dienThoaiService.AddPhone();
                         break;
                     case "2":
-                        _dienThoaiService.DocDienThoaiTuFile();
+                        _dienThoaiService.ReadPhoneFromFile();
                         break;
                     case "3":
-                        _dienThoaiService.XoaDienThoaiTheoMa();
+                        _dienThoaiService.DeletePhoneByModel();
                         break;
                     case "4":
-                        _dienThoaiService.EditDienThoai();
+                        _dienThoaiService.EditPhone();
                         break;
                     case "5":
                         TimKiemDienThoai();
@@ -102,7 +102,7 @@ namespace MobilePhoneSalesManagement.Controllers
                         ThongKeDienThoai();
                         break;
                     case "10":
-                        _dienThoaiService.ThemDuLieuMau();
+                        _dienThoaiService.AddSampleData();
                         break;
                     case "0":
                         Console.Clear();
@@ -145,13 +145,13 @@ namespace MobilePhoneSalesManagement.Controllers
                 switch (chon)
                 {
                     case "1":
-                        _dienThoaiService.TimKiemTheoMa();
+                        _dienThoaiService.SearchByCode();
                         break;
                     case "2":
-                        _dienThoaiService.TimKiemTheoTen();
+                        _dienThoaiService.SearchByName();
                         break;
                     case "3":
-                        _dienThoaiService.TimKiemTheoHang();
+                        _dienThoaiService.SearchByBrand();
                         break;
                     case "0":
                         ProcessMenuDienThoai();
@@ -195,16 +195,16 @@ namespace MobilePhoneSalesManagement.Controllers
                 {
                     case "1":
 
-                        _dienThoaiService.SapXepTheoMa();
+                        _dienThoaiService.SortByCode();
                         break;
                     case "2":
-                        _dienThoaiService.SapXepTheoTen();
+                        _dienThoaiService.SortByName();
                         break;
                     case "3":
-                        _dienThoaiService.SapXepTheoHang();
+                        _dienThoaiService.SortByBrand();
                         break;
                     case "4":
-                        _dienThoaiService.SapXepTheoRAM();
+                        _dienThoaiService.SortByRAM();
                         break;
                     case "0":
                         Console.Clear();
@@ -256,28 +256,28 @@ namespace MobilePhoneSalesManagement.Controllers
                 switch (chon)
                 {
                     case "1":
-                        _dienThoaiService.TimMinGia();
+                        _dienThoaiService.FindMinPrice();
                         break;
                     case "2":
-                        _dienThoaiService.TimMaxGia();
+                        _dienThoaiService.FindMaxPrice();
                         break;
                     case "3":
-                        _dienThoaiService.TimMinSoLuongTon();
+                        _dienThoaiService.FindMinStockQuantity();
                         break;
                     case "4":
-                        _dienThoaiService.TimMaxSoLuongTon();
+                        _dienThoaiService.FindMaxStockQuantity();
                         break;
                     case "5":
-                        _dienThoaiService.TimMinRAM();
+                        _dienThoaiService.FindMinRAM();
                         break;
                     case "6":
-                        _dienThoaiService.TimMaxRAM();
+                        _dienThoaiService.FindMaxRAM();
                         break;
                     case "7":
-                        _dienThoaiService.TimMinDungLuongLuuTru();
+                        _dienThoaiService.FindMinStorageCapacity();
                         break;
                     case "8":
-                        _dienThoaiService.TimMaxDungLuongLuuTru();
+                        _dienThoaiService.FindMaxStorageCapacity();
                         break;
                     case "0":
                         Console.Clear();
@@ -322,19 +322,19 @@ namespace MobilePhoneSalesManagement.Controllers
                 switch (chon)
                 {
                     case "1":
-                        _dienThoaiService.DemDienThoaiTheoHang();
+                        _dienThoaiService.CountPhonesByBrand();
                         break;
                     case "2":
-                        _dienThoaiService.TinhTrungBinhGiaTheoHang();
+                        _dienThoaiService.CalculateAveragePriceByBrand();
                         break;
                     case "3":
-                        _dienThoaiService.TongSoLuongTonKhoTheoHang();
+                        _dienThoaiService.TotalStockQuantityByBrand();
                         break;
                     case "4":
-                        _dienThoaiService.DemDienThoaiTheoKhoangGia();
+                        _dienThoaiService.CountPhonesByPriceRange();
                         break;
                     case "5":
-                        _dienThoaiService.DemDienThoaiTheoKhoangRAM();
+                        _dienThoaiService.CountPhonesByRAMRange();
                         break;
                     case "0":
                         Console.Clear();
@@ -378,19 +378,19 @@ namespace MobilePhoneSalesManagement.Controllers
                 switch (chon)
                 {
                     case "1":
-                        _dienThoaiService.ThongkeModelTheoHang();
+                        _dienThoaiService.GroupStatisticsByBrand();
                         break;
                     case "2":
-                        _dienThoaiService.ThongKeGiaTriTonTheoHang();
+                        _dienThoaiService.StockValueStatisticsByBrand();
                         break;
                     case "3":
-                        _dienThoaiService.ThongKeDienThoaiSapHetHang();
+                        _dienThoaiService.WarnLowStockPhones();
                         break;
                     case "4":
-                        _dienThoaiService.ThongkePhanTramTonKhoTheoHang();
+                        _dienThoaiService.StockPercentageStatisticsByBrand();
                         break;
                     case "5":
-                        _dienThoaiService.ThongkeDienThoaiTheoKhoangGia();
+                        _dienThoaiService.GroupStatisticsByPriceRange();
                         break;
                     case "0":
                         Console.Clear();
