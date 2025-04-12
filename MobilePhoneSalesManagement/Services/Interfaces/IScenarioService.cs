@@ -10,6 +10,7 @@ namespace MobilePhoneSalesManagement.Services.Interfaces
     public interface IScenarioService
     {
         T SearchObjectByAttribute<T>(SinglyLinkedList<T> list, string thuocTinh, object giaTriCanTim);
+        T EditListByProperty<T>(SinglyLinkedList<T> list, string keyProperty, object keyValue, Dictionary<string, object> updates);
         SinglyLinkedList<T> SearchObjectListByAttributes<T>(SinglyLinkedList<T> list, string thuocTinh, object giaTriCanTim);
         T DeleteByAttributes<T>(SinglyLinkedList<T> list, string thuocTinh, object giaTriCanTim);
         SinglyLinkedList<T> SortByAttributes<T>(SinglyLinkedList<T> list, string thuocTinh, bool ascending = true);

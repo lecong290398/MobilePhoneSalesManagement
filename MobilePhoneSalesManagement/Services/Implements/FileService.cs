@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -16,9 +17,7 @@ namespace MobilePhoneSalesManagement.Services.Implements
         public FileService()
         {
         }
-        // -------------------------
-        // CREATE or ADD
-        // -------------------------
+     
         public void Add<T>(T item, string filePath)
         {
             try
@@ -47,39 +46,46 @@ namespace MobilePhoneSalesManagement.Services.Implements
 
         }
 
-        // -------------------------
-        // READ ALL
-        // -------------------------
         public SinglyLinkedList<T> GetAll<T>(string filePath)
         {
             return LoadFromJsonFile<T>(filePath);
         }
 
-        // -------------------------
-        // UPDATE (by key "Ma")
-        // -------------------------
-        public void Update<T>(T newItem, string keyValue, string filePath)
+        /// <summary>
+        /// Cập nhật đối tượng trong danh sách theo giá trị thuộc tính khóa.
+        /// </summary>
+        /// <typeparam name="T">Kiểu đối tượng trong danh sách (SinglyLinkedList).</typeparam>
+        /// <param name="newItem">Đối tượng mới cần thay thế cho đối tượng cũ.</param>
+        /// <param name="keyProperty">Tên thuộc tính khóa (ví dụ: "Ma").</param>
+        /// <param name="keyValue">Giá trị thuộc tính khóa cần tìm.</param>
+        /// <param name="filePath">Đường dẫn tới tệp JSON chứa danh sách.</param>
+        public void Update<T>(T newItem, string keyProperty, string keyValue, string filePath)
         {
+            // Load danh sách từ file JSON
             var list = LoadFromJsonFile<T>(filePath);
             var current = list.Head;
 
+            // Duyệt qua danh sách để tìm đối tượng cần chỉnh sửa
             while (current != null)
             {
-                var prop = typeof(T).GetProperty("Ma");
-                if (prop != null && prop.GetValue(current.Data)?.ToString() == keyValue)
+                // Lấy thông tin thuộc tính khóa
+                var prop = typeof(T).GetProperty(keyProperty, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+
+                // Kiểm tra nếu thuộc tính khóa và giá trị khóa khớp
+                if (prop != null && keyValue != null && prop.GetValue(current.Data)?.ToString() == keyValue.ToString())
                 {
+                    // Cập nhật đối tượng mới
                     current.Data = newItem;
-                    break;
+                    break;  // Đã tìm thấy đối tượng và chỉnh sửa xong
                 }
+
                 current = current.Next;
             }
 
+            // Lưu danh sách đã chỉnh sửa vào file JSON
             SaveToJsonFile(list, filePath);
         }
 
-        // -------------------------
-        // DELETE (by key "Ma")
-        // -------------------------
         public void Delete<T>(T data, string filePath)
         {
             var list = LoadFromJsonFile<T>(filePath);
@@ -115,9 +121,6 @@ namespace MobilePhoneSalesManagement.Services.Implements
             }
         }
 
-        // -------------------------
-        // PRIVATE: Save to file
-        // -------------------------
         private void SaveToJsonFile<T>(SinglyLinkedList<T> list, string filePath)
         {
             var dataList = new List<T>();
@@ -132,9 +135,6 @@ namespace MobilePhoneSalesManagement.Services.Implements
             File.WriteAllText(filePath, json);
         }
 
-        // -------------------------
-        // PRIVATE: Load from file
-        // -------------------------
         private SinglyLinkedList<T> LoadFromJsonFile<T>(string filePath)
         {
             var list = new SinglyLinkedList<T>();
@@ -151,23 +151,5 @@ namespace MobilePhoneSalesManagement.Services.Implements
             return list;
         }
 
-        private void editFile(string filePath, string content)
-        {
-            try
-            {
-                // 1. Tạo thư mục nếu chưa tồn tại
-                string folder = Path.GetDirectoryName(filePath);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                // 2. Ghi nội dung vào file
-                File.WriteAllText(filePath, content);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
     }
 }

@@ -38,13 +38,14 @@ namespace MobilePhoneSalesManagement.Services.Implements
                 Console.WriteLine("1. Thêm điện thoại");
                 Console.WriteLine("2. In danh sách điện thoại");
                 Console.WriteLine("3. Xóa điện thoại theo mã");
-                Console.WriteLine("4. Tìm kiếm điện thoại");
-                Console.WriteLine("5. Sắp xếp điện thoại");
-                Console.WriteLine("6. Tìm MIN/MAX điện thoại");
-                Console.WriteLine("7. Tính tổng, trung bình, điếm điện thoại");
-                Console.WriteLine("8. Thống kê điện thoại");
-                Console.WriteLine("9. Tạo các điện thoại mẫu - 40 Item điện thoại");
-                Console.WriteLine("10. Khởi tạo lại dữ liệu (Remove-All)");
+                Console.WriteLine("4. Chỉnh sửa điện thoại theo mã");
+                Console.WriteLine("5. Tìm kiếm điện thoại");
+                Console.WriteLine("6. Sắp xếp điện thoại");
+                Console.WriteLine("7. Tìm MIN/MAX điện thoại");
+                Console.WriteLine("8. Tính tổng, trung bình, điếm điện thoại");
+                Console.WriteLine("9. Thống kê điện thoại");
+                Console.WriteLine("10. Tạo các điện thoại mẫu - 40 Item điện thoại");
+                Console.WriteLine("11. Khởi tạo lại dữ liệu (Remove-All)");
                 Console.WriteLine("0. Quay lại menu chính");
                 Console.Write("Chọn chức năng: ");
                 string chon = Console.ReadLine();
@@ -61,24 +62,27 @@ namespace MobilePhoneSalesManagement.Services.Implements
                         XoaDienThoaiTheoMa();
                         break;
                     case "4":
-                        TimKiemDienThoai();
+                        EditDienThoai();
                         break;
                     case "5":
-                        SapXepDienThoai();
+                        TimKiemDienThoai();
                         break;
                     case "6":
-                        TimMinMax();
+                        SapXepDienThoai();
                         break;
                     case "7":
-                        TinhTongTrungBinhDiemDienThoai();
+                        TimMinMax();
                         break;
                     case "8":
-                        ThongKeDienThoai();
+                        TinhTongTrungBinhDiemDienThoai();
                         break;
                     case "9":
-                        ThemDuLieuMau();
+                        ThongKeDienThoai();
                         break;
                     case "10":
+                        ThemDuLieuMau();
+                        break;
+                    case "11":
                         break;
                     case "0":
                         Console.Clear();
@@ -455,7 +459,7 @@ namespace MobilePhoneSalesManagement.Services.Implements
 
         #region Private Method
 
-        #region Nhập - In - Xóa - Lưu trữ - danh sách điện thoại
+        #region Nhập - In - Xóa - Sửa - Lưu trữ - danh sách điện thoại
 
         /// <summary>
         /// Thêm điện thoại vào danh sách
@@ -639,6 +643,99 @@ namespace MobilePhoneSalesManagement.Services.Implements
             string ma = Console.ReadLine();
             var dataDienThoai = _scenarioService.DeleteByAttributes(_dienThoaiList, "Ma", ma);
             _fileService.Delete<DienThoai>(dataDienThoai, _filePath);
+        }
+
+        public void EditDienThoai()
+        {
+            Console.Write("Nhập mã điện thoại bạn muốn chỉnh sửa: ");
+            string ma = Console.ReadLine();
+            var updatedPhone = EditDienThoaiByMa(_dienThoaiList, ma);
+
+            if (updatedPhone != null)
+            {
+                Console.WriteLine($" Điện thoại đã được chỉnh sửa:");
+                InBangDienThoai(updatedPhone);
+            }
+        }
+
+        private DienThoai EditDienThoaiByMa(SinglyLinkedList<DienThoai> list, string ma)
+        {
+            if (list == null || list.Head == null) return null;
+
+            // Tìm kiếm điện thoại theo mã
+            var dienThoaiToEdit = _scenarioService.SearchObjectByAttribute(_dienThoaiList, "Ma", ma);
+
+            if (dienThoaiToEdit == null)
+            {
+                Console.WriteLine("❌ Không tìm thấy điện thoại với mã: " + ma);
+                return null;
+            }
+
+            Console.WriteLine($"📱 Đang chỉnh sửa điện thoại: {dienThoaiToEdit.Ten}");
+
+            // Yêu cầu người dùng chọn thuộc tính muốn chỉnh sửa
+            Console.WriteLine("\nChọn thuộc tính bạn muốn chỉnh sửa:");
+            Console.WriteLine("1. Tên");
+            Console.WriteLine("2. Hãng");
+            Console.WriteLine("3. Giá");
+            Console.WriteLine("4. Số lượng tồn");
+            Console.WriteLine("5. RAM");
+            Console.WriteLine("6. Dung lượng lưu trữ");
+
+            string choice = Console.ReadLine();
+
+            // Nhập giá trị mới tùy theo thuộc tính
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Nhập tên mới: ");
+                    dienThoaiToEdit.Ten = Console.ReadLine();
+                    break;
+
+                case "2":
+                    Console.Write("Nhập hãng mới: ");
+                    dienThoaiToEdit.Hang = Console.ReadLine();
+                    break;
+
+                case "3":
+                    Console.Write("Nhập giá mới: ");
+                    if (double.TryParse(Console.ReadLine(), out double newPrice))
+                        dienThoaiToEdit.Gia = newPrice;
+                    else
+                        Console.WriteLine("❌ Giá không hợp lệ.");
+                    break;
+
+                case "4":
+                    Console.Write("Nhập số lượng tồn mới: ");
+                    if (int.TryParse(Console.ReadLine(), out int newQuantity))
+                        dienThoaiToEdit.SoLuongTon = newQuantity;
+                    else
+                        Console.WriteLine("❌ Số lượng tồn không hợp lệ.");
+                    break;
+
+                case "5":
+                    Console.Write("Nhập RAM mới: ");
+                    if (int.TryParse(Console.ReadLine(), out int newRam))
+                        dienThoaiToEdit.RAM = newRam;
+                    else
+                        Console.WriteLine("❌ RAM không hợp lệ.");
+                    break;
+
+                case "6":
+                    Console.Write("Nhập dung lượng lưu trữ mới: ");
+                    if (int.TryParse(Console.ReadLine(), out int newStorage))
+                        dienThoaiToEdit.DungLuongLuuTru = newStorage;
+                    else
+                        Console.WriteLine("❌ Dung lượng lưu trữ không hợp lệ.");
+                    break;
+
+                default:
+                    Console.WriteLine("❌ Lựa chọn không hợp lệ.");
+                    return null;
+            }
+
+            Console.WriteLine("✅ Đã cập nhật thông tin điện thoại.");
+            return dienThoaiToEdit;
         }
 
         #endregion

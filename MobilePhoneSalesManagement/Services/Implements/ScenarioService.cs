@@ -21,29 +21,55 @@ namespace MobilePhoneSalesManagement.Services.Implements
             return property?.GetValue(obj);
         }
 
-        // Chỉnh sửa giá trị thuộc tính theo điều kiện khóa
-        public static bool EditByProperty<T>(SinglyLinkedList<T> list, string keyProperty, object keyValue, string targetProperty, object newValue)
+        /// <summary>
+        /// Chỉnh sửa giá trị của các thuộc tính trong danh sách theo điều kiện khóa.
+        /// </summary>
+        /// <typeparam name="T">Kiểu của đối tượng trong danh sách.</typeparam>
+        /// <param name="list">Danh sách đối tượng (SinglyLinkedList).</param>
+        /// <param name="keyProperty">Tên thuộc tính khóa để tìm kiếm đối tượng cần chỉnh sửa.</param>
+        /// <param name="keyValue">Giá trị thuộc tính khóa cần tìm kiếm.</param>
+        /// <param name="updates">Từ điển các cặp thuộc tính cần chỉnh sửa và giá trị mới.</param>
+        /// <returns>Đối tượng đã chỉnh sửa nếu tìm thấy, hoặc giá trị mặc định nếu không có thay đổi.</returns>
+        /// <remarks>
+        /// Hàm này duyệt qua danh sách liên kết đơn để tìm đối tượng có giá trị thuộc tính khóa trùng với keyValue. 
+        /// Nếu tìm thấy, các thuộc tính trong từ điển updates sẽ được chỉnh sửa theo giá trị mới. 
+        /// Nếu không tìm thấy đối tượng hoặc không có thay đổi nào, hàm trả về giá trị mặc định.
+        /// </remarks>
+        public T EditListByProperty<T>(SinglyLinkedList<T> list, string keyProperty, object keyValue, Dictionary<string, object> updates)
         {
-            if (list == null || list.Head == null) return false;
+            if (list == null || list.Head == null || updates == null || updates.Count == 0) return default;
 
+            // Lấy thông tin về thuộc tính khóa cần tìm
             var keyProp = typeof(T).GetProperty(keyProperty, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-            var targetProp = typeof(T).GetProperty(targetProperty, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+            if (keyProp == null) return default;
 
-            if (keyProp == null || targetProp == null) return false;
-
+            int count = 0;
             var node = list.Head;
+            T updatedItem = default;
+
+            // Duyệt qua các phần tử trong danh sách
             while (node != null)
             {
                 var key = keyProp.GetValue(node.Data);
                 if (key != null && key.Equals(keyValue))
                 {
-                    targetProp.SetValue(node.Data, Convert.ChangeType(newValue, targetProp.PropertyType));
-                    return true;
+                    // Cập nhật các thuộc tính theo dictionary updates
+                    foreach (var kvp in updates)
+                    {
+                        var prop = typeof(T).GetProperty(kvp.Key, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                        if (prop != null && kvp.Value != null)
+                        {
+                            prop.SetValue(node.Data, Convert.ChangeType(kvp.Value, prop.PropertyType));
+                        }
+                    }
+                    updatedItem = node.Data; // Lưu đối tượng đã chỉnh sửa
+                    count++;
                 }
                 node = node.Next;
             }
 
-            return false;
+            // Trả về đối tượng đã được chỉnh sửa nếu có, hoặc giá trị mặc định nếu không có thay đổi
+            return count > 0 ? updatedItem : default;
         }
 
         /// <summary>
@@ -534,7 +560,15 @@ namespace MobilePhoneSalesManagement.Services.Implements
             return result;
         }
 
-        // Lọc danh sách theo thuộc tính và khoảng giá trị (min <= value <= max)
+        /// <summary>
+        /// Lọc danh sách theo thuộc tính và khoảng giá trị (min <= value <= max) 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="propertyName"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         public SinglyLinkedList<T> FilterByRange<T>(SinglyLinkedList<T> list, string propertyName, double min, double max)
         {
             SinglyLinkedList<T> filteredList = new SinglyLinkedList<T>();
@@ -557,6 +591,8 @@ namespace MobilePhoneSalesManagement.Services.Implements
             }
             return filteredList;
         }
+
+
 
     }
 }
