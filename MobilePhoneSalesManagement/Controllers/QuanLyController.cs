@@ -11,10 +11,12 @@ namespace MobilePhoneSalesManagement.Controllers
     public class QuanLyController
     {
         private IPhoneService _dienThoaiService;
+        private IEmployeeService  _employeeService;
 
-        public QuanLyController(IPhoneService dienThoaiService)
+        public QuanLyController(IPhoneService dienThoaiService, IEmployeeService employeeService)
         {
             _dienThoaiService = dienThoaiService;
+            _employeeService = employeeService;
         }
 
         public void HienThiMenu()
@@ -25,7 +27,7 @@ namespace MobilePhoneSalesManagement.Controllers
             {
                 Console.WriteLine("===== MENU =====");
                 Console.WriteLine("1. Quản lý điện thoại");
-                Console.WriteLine("2. Quản lý hóa đơn");
+                Console.WriteLine("2. Quản lý nhân viên");
                 Console.WriteLine("0. Thoát");
                 Console.Write("Chọn chức năng: ");
                 string chon = Console.ReadLine();
@@ -33,11 +35,10 @@ namespace MobilePhoneSalesManagement.Controllers
                 switch (chon)
                 {
                     case "1":
-                        ProcessMenuDienThoai();
+                        ProcessMenuPhone();
                         break;
                     case "2":
-                        //_hoaDonService.NhapDanhSachHoaDon();
-                        //_hoaDonService.InDanhSachHoaDon();
+                        ProcessMenuEmployee();
                         break;
                     case "0":
                         return;
@@ -48,10 +49,347 @@ namespace MobilePhoneSalesManagement.Controllers
             }
         }
 
+
+        #region Menu - Function  - Employee
+
+        public void ProcessMenuEmployee()
+        {
+            bool isStop = false;
+
+            while (!isStop)
+            {
+                Console.Clear();
+                Console.WriteLine("=== MENU QUẢN LÝ NHÂN VIÊN ===");
+                Console.WriteLine("1. Thêm nhân viên");
+                Console.WriteLine("2. Sửa thông tin nhân viên");
+                Console.WriteLine("3. Xóa nhân viên");
+                Console.WriteLine("4. Tìm kiếm nhân viên");
+                Console.WriteLine("5. Sắp xếp nhân viên");
+                Console.WriteLine("6. Tìm MIN/MAX");
+                Console.WriteLine("7. Tính tổng, trung bình, điếm");
+                Console.WriteLine("8. Thống kê");
+                Console.WriteLine("9. Thêm dữ liệu mẫu 15 item");
+                Console.WriteLine("0. Thoát");
+                Console.Write("Chọn chức năng: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        _employeeService.AddEmployee();
+                        break;
+                    case "2":
+                        _employeeService.EditEmployee();
+                        break;
+                    case "3":
+                        _employeeService.DeleteEmployeeByModel();
+                        break;
+                    case "4":
+                        SearchEmployee();
+                        break;
+                    case "5":
+                        SortEmployee();
+                        break;
+                    case "6":
+                        TimMinMaxNhanVien();
+                        break;
+                    case "7":
+                        TinhTongTrungBinhDiemNhanVien();
+                        break;
+                    case "8":
+                        ThongKeNhanVien();
+                        break;
+                    case "9":
+                        _employeeService.AddSampleData();
+                        break;
+                    case "0":
+                        isStop = false;
+                        Console.WriteLine("Cảm ơn bạn đã sử dụng chương trình!");
+                        break;
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+                        break;
+                }
+
+                // Hỏi người dùng có muốn quay lại menu tìm kiếm hoặc quay về menu chính
+                Console.WriteLine("\nNhấn phím bất kỳ để tiếp tục tìm kiếm hoặc '0' để quay lại menu chính...");
+                string back = Console.ReadLine();
+                if (back == "0")
+                {
+                    isStop = true;
+                    Console.Clear();
+                    return; // Quay lại menu chính
+                }
+            }
+        }
+        public void SearchEmployee()
+        {
+            var isStop = false;
+            while (!isStop)
+            {
+                Console.Clear();
+                Console.WriteLine("===== MENU TÌM KIẾM NHÂN VIÊN =====");
+                Console.WriteLine("Tìm kiếm nhân viên theo:");
+                Console.WriteLine("1. ID");
+                Console.WriteLine("2. Tên");
+                Console.WriteLine("3. Vị trí");
+                Console.WriteLine("0. Quay lại");
+                Console.Write("Chọn tiêu chí tìm kiếm: ");
+                string chon = Console.ReadLine();
+
+                switch (chon)
+                {
+                    case "1":
+                        _employeeService.SearchById(); 
+                        break;
+                    case "2":
+                        _employeeService.SearchByName(); 
+                        break;
+                    case "3":
+                        _employeeService.SearchByPosition(); 
+                        break;
+                    case "0":
+                        ProcessMenuEmployee();  
+                        return;
+                    default:
+                        Console.WriteLine("Chọn không hợp lệ.");
+                        break;
+                }
+
+                // Ask the user if they want to continue searching or return to the main menu
+                Console.WriteLine("\nNhấn phím bất kỳ để tiếp tục tìm kiếm hoặc '0' để quay lại menu chính...");
+                string back = Console.ReadLine();
+                if (back == "0")
+                {
+                    isStop = true;
+                    Console.Clear();
+                    ProcessMenuEmployee();  // Return to the main menu for employees
+                }
+            }
+        }
+        /// <summary>
+        /// MENU Sắp xếp nhân viên theo các tiêu chí khác nhau
+        /// </summary>
+        public void SortEmployee()
+        {
+            var isStop = false;
+            while (!isStop)
+            {
+                Console.Clear(); // Xóa màn hình
+                Console.WriteLine("===== MENU SẮP XẾP NHÂN VIÊN =====");
+                Console.WriteLine("Sắp xếp nhân viên theo:");
+                Console.WriteLine("1. ID");
+                Console.WriteLine("2. Tên");
+                Console.WriteLine("3. Chức vụ");
+                Console.WriteLine("4. Giới tính");
+                Console.WriteLine("0. Quay lại");
+                Console.Write("Chọn tiêu chí sắp xếp: ");
+                string chon = Console.ReadLine();
+
+                switch (chon)
+                {
+                    case "1":
+                        _employeeService.SortById(); // Sort by ID
+                        break;
+                    case "2":
+                        _employeeService.SortByName(); // Sort by Name
+                        break;
+                    case "3":
+                        _employeeService.SortByPosition(); // Sort by Position
+                        break;
+                    case "4":
+                        _employeeService.SortByGender(); // Sort by Salary
+                        break;
+                    case "0":
+                        Console.Clear();
+                        ProcessMenuEmployee(); // Go back to main employee menu
+                        break;
+                    default:
+                        Console.WriteLine("Chọn không hợp lệ.");
+                        break;
+                }
+
+                // Ask the user if they want to continue sorting or go back to the main menu
+                Console.WriteLine("\nNhấn phím bất kỳ để tiếp tục sắp xếp hoặc '0' để quay lại...");
+                string back = Console.ReadLine();
+                if (back == "0")
+                {
+                    isStop = true;
+                    Console.Clear();
+                    ProcessMenuEmployee(); // Go back to the main employee menu
+                }
+            }
+        }
+
+        private void TimMinMaxNhanVien()
+        {
+            var isStop = false;
+            while (!isStop)
+            {
+                Console.Clear(); // Xóa màn hình
+                Console.WriteLine("===== MENU Tìm MIN/MAX NHÂN VIÊN =====");
+                Console.WriteLine("Tìm min/max nhân viên theo:");
+                Console.WriteLine("==Lương==");
+                Console.WriteLine("1. Min Lương");
+                Console.WriteLine("2. Max Lương");
+                Console.WriteLine("==Tuổi==");
+                Console.WriteLine("3. Min Tuổi");
+                Console.WriteLine("4. Max Tuổi");
+                Console.WriteLine("0. Quay lại");
+                Console.Write("Chọn tiêu chí tìm min/max: ");
+                string chon = Console.ReadLine();
+
+                switch (chon)
+                {
+                    case "1":
+                        _employeeService.FindMinSalary(); // Find employee with min salary
+                        break;
+                    case "2":
+                        _employeeService.FindMaxSalary(); // Find employee with max salary
+                        break;
+                    case "3":
+                        _employeeService.FindMinAge(); // Find employee with min age
+                        break;
+                    case "4":
+                        _employeeService.FindMaxAge(); // Find employee with max age
+                        break;
+                   
+                    case "0":
+                        Console.Clear();
+                        ProcessMenuEmployee(); // Go back to the main employee menu
+                        break;
+                    default:
+                        Console.WriteLine("Chọn không hợp lệ.");
+                        break;
+                }
+
+                // Ask the user if they want to continue searching or go back to the main menu
+                Console.WriteLine("\nNhấn phím bất kỳ để tiếp tục tìm kiếm hoặc '0' để quay lại...");
+                string back = Console.ReadLine();
+                if (back == "0")
+                {
+                    isStop = true;
+                    Console.Clear();
+                    ProcessMenuEmployee(); // Go back to the main employee menu
+                }
+            }
+        }
+
+        public void TinhTongTrungBinhDiemNhanVien()
+        {
+            var isStop = false;
+            while (!isStop)
+            {
+                Console.Clear(); // Xóa màn hình
+                Console.WriteLine("===== MENU TÍNH TỔNG, TRUNG BÌNH, ĐẾM NHÂN VIÊN =====");
+                Console.WriteLine("Tính tổng, trung bình và đếm nhân viên theo:");
+                Console.WriteLine("1. Đếm số lượng nhân viên theo vị trí (Chức vụ)");
+                Console.WriteLine("2. Tổng lương của nhân viên có bằng cấp");
+                Console.WriteLine("3. Tuổi trung bình của nhân viên giới tính");
+                Console.WriteLine("4. Đếm số lượng nhân viên theo giới tính");
+                Console.WriteLine("5. Đếm số lượng nhân viên theo bằng cấp");
+                Console.WriteLine("0. Quay lại");
+                Console.Write("Chọn tiêu chí tính: ");
+                string chon = Console.ReadLine();
+
+                switch (chon)
+                {
+                    case "1":
+                        _employeeService.CountEmployeesByPosition(); 
+                        break;
+                    case "2":
+                        _employeeService.TotalByEducation(); 
+                        break;
+                    case "3":
+                        _employeeService.CalculateAverageAgeByGender();
+                        break;
+                    case "4":
+                        _employeeService.CountEmployeesByGender(); 
+                        break;
+                    case "5":
+                        _employeeService.CountEmployeesByEducation(); 
+                        break;
+                    case "0":
+                        Console.Clear();
+                        ProcessMenuEmployee(); // Quay lại menu nhân viên chính
+                        break;
+                    default:
+                        Console.WriteLine("Chọn không hợp lệ.");
+                        break;
+                }
+
+                // Hỏi người dùng có muốn quay lại menu tìm kiếm hoặc quay về menu chính
+                Console.WriteLine("\nNhấn phím bất kỳ để tiếp tục tính toán hoặc '0' để quay lại...");
+                string back = Console.ReadLine();
+                if (back == "0")
+                {
+                    isStop = true;
+                    Console.Clear();
+                    ProcessMenuEmployee(); // Quay lại menu chính nhân viên
+                }
+            }
+        }
+
+        public void ThongKeNhanVien()
+        {
+            var isStop = false;
+            while (!isStop)
+            {
+                Console.Clear(); // Xóa màn hình
+                Console.WriteLine("===== MENU THỐNG KÊ NHÂN VIÊN =====");
+                Console.WriteLine("1. Thống nhân viên theo giới tính");
+                Console.WriteLine("2. Thống kê nhân viên sắp hết tuổi lao động Nam 60 và nữ 55 điều kiện khoảng 1-2 năm trước tuổi nghỉ hưu");
+                Console.WriteLine("3. Thống kê nhân viên theo bằng cấp");
+                Console.WriteLine("4. Thống kê tỷ lệ phần trăm nhân viên theo giới tính");
+                Console.WriteLine("5. Thống kê nhân viên theo khoảng lương");
+                Console.WriteLine("0. Quay lại");
+                Console.Write("Chọn tiêu chí thống kê: ");
+                string chon = Console.ReadLine();
+                switch (chon)
+                {
+                    case "1":
+                        _employeeService.GroupStatisticsByGender(); 
+                        break;
+                    case "2":
+                        _employeeService.WarnEmployeesNearRetirement(); 
+                        break;
+                    case "3":
+                        _employeeService.GroupStatisticsByEducation(); 
+                        break;
+                    case "4":
+                        _employeeService.PercentageStatisticsByGender(); 
+                        break;
+                    case "5":
+                        _employeeService.GroupStatisticsBySalary(); 
+                        break;
+                    case "0":
+                        Console.Clear();
+                        ProcessMenuEmployee(); 
+                        break;
+                    default:
+                        Console.WriteLine("Chọn không hợp lệ.");
+                        break;
+                }
+
+                // Ask the user if they want to continue or return to the main menu
+                Console.WriteLine("\nNhấn phím bất kỳ để tiếp tục tìm kiếm hoặc '0' để quay lại...");
+                string back = Console.ReadLine();
+                if (back == "0")
+                {
+                    isStop = true;
+                    Console.Clear();
+                    ProcessMenuEmployee(); // Return to the main employee menu
+                }
+            }
+        }
+
+
+        #endregion
+
         #region MENU  - Function - Phone
 
 
-        public void ProcessMenuDienThoai()
+        public void ProcessMenuPhone()
         {
             var isStop = false;
             while (!isStop)
@@ -154,7 +492,7 @@ namespace MobilePhoneSalesManagement.Controllers
                         _dienThoaiService.SearchByBrand();
                         break;
                     case "0":
-                        ProcessMenuDienThoai();
+                        ProcessMenuPhone();
                         return; // Quay lại menu chính
                     default:
                         Console.WriteLine("Chọn không hợp lệ.");
@@ -168,7 +506,7 @@ namespace MobilePhoneSalesManagement.Controllers
                 {
                     isStop = true;
                     Console.Clear();
-                    ProcessMenuDienThoai();
+                    ProcessMenuPhone();
                 }
             }
         }
@@ -208,7 +546,7 @@ namespace MobilePhoneSalesManagement.Controllers
                         break;
                     case "0":
                         Console.Clear();
-                        ProcessMenuDienThoai();
+                        ProcessMenuPhone();
                         break;
                     default:
                         Console.WriteLine("Chọn không hợp lệ.");
@@ -222,7 +560,7 @@ namespace MobilePhoneSalesManagement.Controllers
                 {
                     isStop = true;
                     Console.Clear();
-                    ProcessMenuDienThoai();
+                    ProcessMenuPhone();
                 }
             }
         }
@@ -281,7 +619,7 @@ namespace MobilePhoneSalesManagement.Controllers
                         break;
                     case "0":
                         Console.Clear();
-                        ProcessMenuDienThoai();
+                        ProcessMenuPhone();
                         break;
                     default:
                         Console.WriteLine("Chọn không hợp lệ.");
@@ -295,7 +633,7 @@ namespace MobilePhoneSalesManagement.Controllers
                 {
                     isStop = true;
                     Console.Clear();
-                    ProcessMenuDienThoai();
+                    ProcessMenuPhone();
                 }
             }
         }
@@ -338,7 +676,7 @@ namespace MobilePhoneSalesManagement.Controllers
                         break;
                     case "0":
                         Console.Clear();
-                        ProcessMenuDienThoai();
+                        ProcessMenuPhone();
                         break;
                     default:
                         Console.WriteLine("Chọn không hợp lệ.");
@@ -352,7 +690,7 @@ namespace MobilePhoneSalesManagement.Controllers
                 {
                     isStop = true;
                     Console.Clear();
-                    ProcessMenuDienThoai();
+                    ProcessMenuPhone();
                 }
             }
         }
@@ -394,7 +732,7 @@ namespace MobilePhoneSalesManagement.Controllers
                         break;
                     case "0":
                         Console.Clear();
-                        ProcessMenuDienThoai();
+                        ProcessMenuPhone();
                         break;
                     default:
                         Console.WriteLine("Chọn không hợp lệ.");
@@ -408,7 +746,7 @@ namespace MobilePhoneSalesManagement.Controllers
                 {
                     isStop = true;
                     Console.Clear();
-                    ProcessMenuDienThoai();
+                    ProcessMenuPhone();
                 }
             }
         }

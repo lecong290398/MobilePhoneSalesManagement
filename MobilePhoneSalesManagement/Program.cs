@@ -1,4 +1,5 @@
-﻿using MobilePhoneSalesManagement.Controllers;
+﻿using MobileEmployeeSalesManagement.Services.Implements;
+using MobilePhoneSalesManagement.Controllers;
 using MobilePhoneSalesManagement.Services.Implements;
 using MobilePhoneSalesManagement.Services.Interfaces;
 
@@ -6,8 +7,9 @@ using MobilePhoneSalesManagement.Services.Interfaces;
 IFileService fileService = new FileService();
 IScenarioService scenarioService = new ScenarioService();
 IPhoneService dienThoaiService = new PhoneService(fileService, scenarioService);
+IEmployeeService employeeService = new EmployeeService(fileService, scenarioService);
 
 // Tạo đối tượng QuanLyController và truyền PhoneService vào
-QuanLyController controller = new QuanLyController(dienThoaiService);
+QuanLyController controller = new QuanLyController(dienThoaiService, employeeService);
 // Gọi phương thức HienThiMenu
 controller.HienThiMenu();

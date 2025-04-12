@@ -61,7 +61,7 @@ namespace MobilePhoneSalesManagement.Services.Implements
         //tạo các điện thoại mẫu
         public void AddSampleData()
         {
-            var dienThoaiMoi = new List<Phone>
+            var dienThoaiMoi = new Phone[]
             {
                 new Phone("DT01", "iPhone 14", "Apple", 25000000, 15, 6, 128),
                 new Phone("DT02", "Galaxy S23", "Samsung", 22000000, 10, 8, 256),
