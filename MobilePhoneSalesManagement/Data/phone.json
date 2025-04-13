@@ -1,371 +1,362 @@
 [
   {
-    "Ma": "DT01",
-    "Ten": "iPhone 14",
-    "Hang": "DKKKKKK",
-    "Gia": 25000000.0,
-    "SoLuongTon": 15,
+    "Code": "DT01",
+    "Name": "iPhone 14",
+    "Brand": "Apple",
+    "Price": 25000000.0,
+    "StockQuantity": 15,
     "RAM": 6,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT02",
-    "Ten": "Galaxy S23",
-    "Hang": "Samsung",
-    "Gia": 22000000.0,
-    "SoLuongTon": 10,
+    "Code": "DT02",
+    "Name": "Galaxy S23",
+    "Brand": "Samsung",
+    "Price": 22000000.0,
+    "StockQuantity": 10,
     "RAM": 8,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT03",
-    "Ten": "Xperia 1 V",
-    "Hang": "Sony",
-    "Gia": 21000000.0,
-    "SoLuongTon": 8,
+    "Code": "DT03",
+    "Name": "Xperia 1 V",
+    "Brand": "Sony",
+    "Price": 21000000.0,
+    "StockQuantity": 8,
     "RAM": 12,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT04",
-    "Ten": "Mi 13 Pro",
-    "Hang": "Xiaomi",
-    "Gia": 18000000.0,
-    "SoLuongTon": 12,
+    "Code": "DT04",
+    "Name": "Mi 13 Pro",
+    "Brand": "Xiaomi",
+    "Price": 18000000.0,
+    "StockQuantity": 12,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT05",
-    "Ten": "OnePlus 11",
-    "Hang": "OnePlus",
-    "Gia": 19000000.0,
-    "SoLuongTon": 7,
+    "Code": "DT05",
+    "Name": "OnePlus 11",
+    "Brand": "OnePlus",
+    "Price": 19000000.0,
+    "StockQuantity": 7,
     "RAM": 16,
-    "DungLuongLuuTru": 512
+    "StorageCapacity": 512
   },
   {
-    "Ma": "DT06",
-    "Ten": "Pixel 8",
-    "Hang": "Google",
-    "Gia": 20000000.0,
-    "SoLuongTon": 5,
+    "Code": "DT06",
+    "Name": "Pixel 8",
+    "Brand": "Google",
+    "Price": 20000000.0,
+    "StockQuantity": 5,
     "RAM": 8,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT07",
-    "Ten": "Nokia X30",
-    "Hang": "Nokia",
-    "Gia": 9000000.0,
-    "SoLuongTon": 20,
+    "Code": "DT07",
+    "Name": "Nokia X30",
+    "Brand": "Nokia",
+    "Price": 9000000.0,
+    "StockQuantity": 20,
     "RAM": 6,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT08",
-    "Ten": "Oppo Find X5",
-    "Hang": "Oppo",
-    "Gia": 17000000.0,
-    "SoLuongTon": 9,
+    "Code": "DT08",
+    "Name": "Oppo Find X5",
+    "Brand": "Oppo",
+    "Price": 17000000.0,
+    "StockQuantity": 9,
     "RAM": 12,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT09",
-    "Ten": "Vivo X90",
-    "Hang": "Vivo",
-    "Gia": 16500000.0,
-    "SoLuongTon": 11,
+    "Code": "DT09",
+    "Name": "Vivo X90",
+    "Brand": "Vivo",
+    "Price": 16500000.0,
+    "StockQuantity": 11,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT10",
-    "Ten": "Realme GT Neo",
-    "Hang": "Realme",
-    "Gia": 13000000.0,
-    "SoLuongTon": 14,
+    "Code": "DT10",
+    "Name": "Realme GT Neo",
+    "Brand": "Realme",
+    "Price": 13000000.0,
+    "StockQuantity": 14,
     "RAM": 12,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT11",
-    "Ten": "Huawei P50",
-    "Hang": "Huawei",
-    "Gia": 23000000.0,
-    "SoLuongTon": 6,
+    "Code": "DT11",
+    "Name": "Huawei P50",
+    "Brand": "Huawei",
+    "Price": 23000000.0,
+    "StockQuantity": 6,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT12",
-    "Ten": "LG Velvet",
-    "Hang": "LG",
-    "Gia": 15000000.0,
-    "SoLuongTon": 10,
+    "Code": "DT12",
+    "Name": "LG Velvet",
+    "Brand": "LG",
+    "Price": 15000000.0,
+    "StockQuantity": 10,
     "RAM": 8,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT13",
-    "Ten": "Asus Zenfone 8",
-    "Hang": "Asus",
-    "Gia": 21000000.0,
-    "SoLuongTon": 9,
+    "Code": "DT13",
+    "Name": "Asus Zenfone 8",
+    "Brand": "Asus",
+    "Price": 21000000.0,
+    "StockQuantity": 9,
     "RAM": 16,
-    "DungLuongLuuTru": 512
+    "StorageCapacity": 512
   },
   {
-    "Ma": "DT14",
-    "Ten": "Motorola Edge 30",
-    "Hang": "Motorola",
-    "Gia": 17000000.0,
-    "SoLuongTon": 7,
+    "Code": "DT14",
+    "Name": "Motorola Edge 30",
+    "Brand": "Motorola",
+    "Price": 17000000.0,
+    "StockQuantity": 7,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT15",
-    "Ten": "Xiaomi Mi 11",
-    "Hang": "Xiaomi",
-    "Gia": 20000000.0,
-    "SoLuongTon": 13,
+    "Code": "DT15",
+    "Name": "Xiaomi Mi 11",
+    "Brand": "Xiaomi",
+    "Price": 20000000.0,
+    "StockQuantity": 13,
     "RAM": 12,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT16",
-    "Ten": "iPhone 13",
-    "Hang": "Apple",
-    "Gia": 23000000.0,
-    "SoLuongTon": 18,
+    "Code": "DT16",
+    "Name": "iPhone 13",
+    "Brand": "Apple",
+    "Price": 23000000.0,
+    "StockQuantity": 18,
     "RAM": 6,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT17",
-    "Ten": "Galaxy Z Flip 3",
-    "Hang": "Samsung",
-    "Gia": 30000000.0,
-    "SoLuongTon": 6,
+    "Code": "DT17",
+    "Name": "Galaxy Z Flip 3",
+    "Brand": "Samsung",
+    "Price": 30000000.0,
+    "StockQuantity": 6,
     "RAM": 8,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT18",
-    "Ten": "Realme GT",
-    "Hang": "Realme",
-    "Gia": 16000000.0,
-    "SoLuongTon": 8,
+    "Code": "DT18",
+    "Name": "Realme GT",
+    "Brand": "Realme",
+    "Price": 16000000.0,
+    "StockQuantity": 8,
     "RAM": 12,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT19",
-    "Ten": "Oppo Reno6",
-    "Hang": "Oppo",
-    "Gia": 18000000.0,
-    "SoLuongTon": 9,
+    "Code": "DT19",
+    "Name": "Oppo Reno6",
+    "Brand": "Oppo",
+    "Price": 18000000.0,
+    "StockQuantity": 9,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT20",
-    "Ten": "Vivo V21",
-    "Hang": "Vivo",
-    "Gia": 17000000.0,
-    "SoLuongTon": 7,
+    "Code": "DT20",
+    "Name": "Vivo V21",
+    "Brand": "Vivo",
+    "Price": 17000000.0,
+    "StockQuantity": 7,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT21",
-    "Ten": "Nokia 8.3",
-    "Hang": "Nokia",
-    "Gia": 19000000.0,
-    "SoLuongTon": 12,
+    "Code": "DT21",
+    "Name": "Nokia 8.3",
+    "Brand": "Nokia",
+    "Price": 19000000.0,
+    "StockQuantity": 12,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT22",
-    "Ten": "Sony Xperia 10 III",
-    "Hang": "Sony",
-    "Gia": 21000000.0,
-    "SoLuongTon": 8,
+    "Code": "DT22",
+    "Name": "Sony Xperia 10 III",
+    "Brand": "Sony",
+    "Price": 21000000.0,
+    "StockQuantity": 8,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT23",
-    "Ten": "Infinix Zero X",
-    "Hang": "Infinix",
-    "Gia": 16000000.0,
-    "SoLuongTon": 10,
+    "Code": "DT23",
+    "Name": "Infinix Zero X",
+    "Brand": "Infinix",
+    "Price": 16000000.0,
+    "StockQuantity": 10,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT24",
-    "Ten": "Tecno Camon 17",
-    "Hang": "Tecno",
-    "Gia": 14000000.0,
-    "SoLuongTon": 15,
+    "Code": "DT24",
+    "Name": "Tecno Camon 17",
+    "Brand": "Tecno",
+    "Price": 14000000.0,
+    "StockQuantity": 15,
     "RAM": 6,
-    "DungLuongLuuTru": 64
+    "StorageCapacity": 64
   },
   {
-    "Ma": "DT25",
-    "Ten": "Sharp Aquos R6",
-    "Hang": "Sharp",
-    "Gia": 25000000.0,
-    "SoLuongTon": 6,
+    "Code": "DT25",
+    "Name": "Sharp Aquos R6",
+    "Brand": "Sharp",
+    "Price": 25000000.0,
+    "StockQuantity": 6,
     "RAM": 12,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT26",
-    "Ten": "Google Pixel 6 Pro",
-    "Hang": "Google",
-    "Gia": 28000000.0,
-    "SoLuongTon": 9,
+    "Code": "DT26",
+    "Name": "Google Pixel 6 Pro",
+    "Brand": "Google",
+    "Price": 28000000.0,
+    "StockQuantity": 9,
     "RAM": 12,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT27",
-    "Ten": "Xiaomi Redmi Note 10",
-    "Hang": "Xiaomi",
-    "Gia": 13000000.0,
-    "SoLuongTon": 20,
+    "Code": "DT27",
+    "Name": "Xiaomi Redmi Note 10",
+    "Brand": "Xiaomi",
+    "Price": 13000000.0,
+    "StockQuantity": 20,
     "RAM": 6,
-    "DungLuongLuuTru": 64
+    "StorageCapacity": 64
   },
   {
-    "Ma": "DT28",
-    "Ten": "Honor Magic 4",
-    "Hang": "Honor",
-    "Gia": 27000000.0,
-    "SoLuongTon": 5,
+    "Code": "DT28",
+    "Name": "Honor Magic 4",
+    "Brand": "Honor",
+    "Price": 27000000.0,
+    "StockQuantity": 5,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT29",
-    "Ten": "Samsung Galaxy A52",
-    "Hang": "Samsung",
-    "Gia": 18000000.0,
-    "SoLuongTon": 13,
+    "Code": "DT29",
+    "Name": "Samsung Galaxy A52",
+    "Brand": "Samsung",
+    "Price": 18000000.0,
+    "StockQuantity": 13,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT30",
-    "Ten": "LG G8 ThinQ",
-    "Hang": "LG",
-    "Gia": 16000000.0,
-    "SoLuongTon": 11,
+    "Code": "DT30",
+    "Name": "LG G8 ThinQ",
+    "Brand": "LG",
+    "Price": 16000000.0,
+    "StockQuantity": 11,
     "RAM": 6,
-    "DungLuongLuuTru": 64
+    "StorageCapacity": 64
   },
   {
-    "Ma": "DT31",
-    "Ten": "Apple iPhone 12",
-    "Hang": "Apple",
-    "Gia": 20000000.0,
-    "SoLuongTon": 14,
+    "Code": "DT31",
+    "Name": "Apple iPhone 12",
+    "Brand": "Apple",
+    "Price": 20000000.0,
+    "StockQuantity": 14,
     "RAM": 6,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT32",
-    "Ten": "Huawei Mate 40",
-    "Hang": "Huawei",
-    "Gia": 27000000.0,
-    "SoLuongTon": 8,
+    "Code": "DT32",
+    "Name": "Huawei Mate 40",
+    "Brand": "Huawei",
+    "Price": 27000000.0,
+    "StockQuantity": 8,
     "RAM": 12,
-    "DungLuongLuuTru": 512
+    "StorageCapacity": 512
   },
   {
-    "Ma": "DT33",
-    "Ten": "Asus ROG Phone 5",
-    "Hang": "Asus",
-    "Gia": 27000000.0,
-    "SoLuongTon": 7,
+    "Code": "DT33",
+    "Name": "Asus ROG Phone 5",
+    "Brand": "Asus",
+    "Price": 27000000.0,
+    "StockQuantity": 7,
     "RAM": 16,
-    "DungLuongLuuTru": 512
+    "StorageCapacity": 512
   },
   {
-    "Ma": "DT34",
-    "Ten": "Realme 8 Pro",
-    "Hang": "Realme",
-    "Gia": 17000000.0,
-    "SoLuongTon": 10,
+    "Code": "DT34",
+    "Name": "Realme 8 Pro",
+    "Brand": "Realme",
+    "Price": 17000000.0,
+    "StockQuantity": 10,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT35",
-    "Ten": "Xiaomi Poco X3 Pro",
-    "Hang": "Xiaomi",
-    "Gia": 15000000.0,
-    "SoLuongTon": 14,
+    "Code": "DT35",
+    "Name": "Xiaomi Poco X3 Pro",
+    "Brand": "Xiaomi",
+    "Price": 15000000.0,
+    "StockQuantity": 14,
     "RAM": 8,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT36",
-    "Ten": "Vivo V23",
-    "Hang": "Vivo",
-    "Gia": 19000000.0,
-    "SoLuongTon": 9,
+    "Code": "DT36",
+    "Name": "Vivo V23",
+    "Brand": "Vivo",
+    "Price": 19000000.0,
+    "StockQuantity": 9,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT37",
-    "Ten": "Oppo F19 Pro",
-    "Hang": "Oppo",
-    "Gia": 16000000.0,
-    "SoLuongTon": 8,
+    "Code": "DT37",
+    "Name": "Oppo F19 Pro",
+    "Brand": "Oppo",
+    "Price": 16000000.0,
+    "StockQuantity": 8,
     "RAM": 8,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT38",
-    "Ten": "Nokia 7.2",
-    "Hang": "Nokia",
-    "Gia": 15000000.0,
-    "SoLuongTon": 10,
+    "Code": "DT38",
+    "Name": "Nokia 7.2",
+    "Brand": "Nokia",
+    "Price": 15000000.0,
+    "StockQuantity": 10,
     "RAM": 6,
-    "DungLuongLuuTru": 128
+    "StorageCapacity": 128
   },
   {
-    "Ma": "DT39",
-    "Ten": "Motorola Moto G100",
-    "Hang": "Motorola",
-    "Gia": 20000000.0,
-    "SoLuongTon": 6,
+    "Code": "DT39",
+    "Name": "Motorola Moto G100",
+    "Brand": "Motorola",
+    "Price": 20000000.0,
+    "StockQuantity": 6,
     "RAM": 12,
-    "DungLuongLuuTru": 256
+    "StorageCapacity": 256
   },
   {
-    "Ma": "DT40",
-    "Ten": "Samsung Galaxy Note 20",
-    "Hang": "Samsung",
-    "Gia": 30000000.0,
-    "SoLuongTon": 5,
+    "Code": "DT40",
+    "Name": "Samsung Galaxy Note 20",
+    "Brand": "Samsung",
+    "Price": 30000000.0,
+    "StockQuantity": 5,
     "RAM": 8,
-    "DungLuongLuuTru": 512
-  },
-  {
-    "Ma": "Le",
-    "Ten": "123",
-    "Hang": "12",
-    "Gia": 2323232.0,
-    "SoLuongTon": 11,
-    "RAM": 21,
-    "DungLuongLuuTru": 333
+    "StorageCapacity": 512
   }
 ]

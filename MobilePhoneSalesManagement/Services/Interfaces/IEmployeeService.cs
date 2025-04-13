@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MobilePhoneSalesManagement.DataStructures;
+using MobilePhoneSalesManagement.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,33 +14,33 @@ namespace MobilePhoneSalesManagement.Services.Interfaces
         /// Thêm nhân viên mới vào danh sách
         /// </summary>
         void AddEmployee();
-
+        void ReadEmployeeFromFile();
         /// <summary>
         /// Chỉnh sửa thông tin nhân viên theo ID
         /// </summary>
-        void EditEmployee();
+        Employee? EditEmployee();
         void AddSampleData();
-        void DeleteEmployeeByModel(); 
-        void SearchById();
-        void SearchByName();
-        void SearchByPosition();
-        void SortById();
-        void SortByName();
-        void SortByPosition();
-        void SortByGender();
-        void FindMinSalary();
-        void FindMaxSalary();
-        void FindMinAge();
-        void FindMaxAge();
-        void CountEmployeesByPosition();
-        void TotalByEducation();
-        void CalculateAverageAgeByGender();
-        void CountEmployeesByGender();
-        void CountEmployeesByEducation();
-        void GroupStatisticsByGender();
-        void WarnEmployeesNearRetirement();
-        void GroupStatisticsByEducation();
-        void PercentageStatisticsByGender();
-        void GroupStatisticsBySalary();
+        Employee? DeleteEmployeeByModel();
+        Employee? SearchById();
+        SinglyLinkedList<Employee> SearchByName();
+        SinglyLinkedList<Employee> SearchByPosition();
+        SinglyLinkedList<Employee> SortById();
+        SinglyLinkedList<Employee> SortByName();
+        SinglyLinkedList<Employee> SortByPosition();
+        SinglyLinkedList<Employee> SortByGender();
+        Employee? FindMinSalary();
+        Employee? FindMaxSalary();
+        Employee? FindMinAge();
+        Employee? FindMaxAge();
+        int CountEmployeesByPosition();
+        int TotalByEducation();
+        double CalculateAverageAgeByGender();
+        int CountEmployeesByGender();
+        int CountEmployeesByEducation();
+        Dictionary<string, int> GroupStatisticsByGender();
+        SinglyLinkedList<Employee> WarnEmployeesNearRetirement();
+        Dictionary<string, int> GroupStatisticsByEducation();
+        Dictionary<string, double> PercentageStatisticsByGender();
+        SinglyLinkedList<Employee> GroupStatisticsBySalary();
     }
 }

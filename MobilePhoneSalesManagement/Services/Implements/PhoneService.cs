@@ -203,7 +203,7 @@ namespace MobilePhoneSalesManagement.Services.Implements
         /// <summary>
         /// Đọc danh sách điện thoại từ file
         /// </summary>
-        public void ReadPhoneFromFile()
+        public SinglyLinkedList<Phone> ReadPhoneFromFile()
         {
             _dienThoaiList = _fileService.GetAll<Phone>(_filePath);
             if (_dienThoaiList.Head == null)
@@ -215,6 +215,7 @@ namespace MobilePhoneSalesManagement.Services.Implements
                 Console.WriteLine("Danh sách điện thoại đã được đọc từ file.");
                 PrintPhoneList(_dienThoaiList);
             }
+            return _dienThoaiList;
         }
 
         /// <summary>
@@ -292,16 +293,16 @@ namespace MobilePhoneSalesManagement.Services.Implements
         /// <summary>
         /// Xóa điện thoại theo mã
         /// </summary>
-        public void DeletePhoneByModel()
+        public Phone DeletePhoneByModel()
         {
             Console.Write("Nhập mã điện thoại cần xoá: ");
             string ma = Console.ReadLine();
             var dataDienThoai = _scenarioService.DeleteByAttributes(_dienThoaiList, "Code", ma);
             _fileService.Delete(dataDienThoai, _filePath, "Code", ma);
-
+            return dataDienThoai;
         }
 
-        public void EditPhone()
+        public Phone? EditPhone()
         {
             Console.Write("Nhập mã điện thoại bạn muốn chỉnh sửa: ");
             string ma = Console.ReadLine();
@@ -313,13 +314,14 @@ namespace MobilePhoneSalesManagement.Services.Implements
                 PrintPhone(updatedPhone);
                 _fileService.Update(updatedPhone, "Code", ma, _filePath);
             }
+            return updatedPhone;
         }
 
         #endregion
 
         #region Tìm kiếm 
         // Tìm kiếm theo mã
-        public void SearchByCode()
+        public Phone? SearchByCode()
         {
             Console.Write("Nhập mã điện thoại: ");
             string ma = Console.ReadLine();
@@ -334,10 +336,11 @@ namespace MobilePhoneSalesManagement.Services.Implements
             {
                 Console.WriteLine($"X Không tìm thấy điện thoại với mã {ma} này.");
             }
+            return foundDienThoai;
         }
 
         // Tìm kiếm theo tên
-        public void SearchByName()
+        public SinglyLinkedList<Phone> SearchByName()
         {
             Console.Write("Nhập tên điện thoại: ");
             string ten = Console.ReadLine();
@@ -346,15 +349,18 @@ namespace MobilePhoneSalesManagement.Services.Implements
             {
                 Console.WriteLine($"Tìm thấy điện thoại với Tên : {ten} ");
                 PrintPhoneList(foundDienThoai);
+                return foundDienThoai;
+
             }
             else
             {
                 Console.WriteLine($"X Không tìm thấy điện thoại với tên {ten} này.");
+                return new SinglyLinkedList<Phone>();
             }
         }
 
         // Tìm kiếm theo hãng
-        public void SearchByBrand()
+        public SinglyLinkedList<Phone> SearchByBrand()
         {
             Console.Write("Nhập hãng điện thoại: ");
             string hang = Console.ReadLine();
@@ -363,10 +369,12 @@ namespace MobilePhoneSalesManagement.Services.Implements
             {
                 Console.WriteLine($"Tìm thấy điện thoại với tên Hãng : {hang} ");
                 PrintPhoneList(foundDienThoai);
+                return foundDienThoai;
             }
             else
             {
                 Console.WriteLine($"X Không tìm thấy điện thoại với tên Hãng {hang} này.");
+                return new SinglyLinkedList<Phone>();
             }
         }
 
@@ -375,39 +383,59 @@ namespace MobilePhoneSalesManagement.Services.Implements
         #region Sắp Xếp
 
         // 4.1 Sắp xếp theo mã điện thoại
-        public void SortByCode()
+        public SinglyLinkedList<Phone> SortByCode()
         {
             var ascending = ValidateSortOrder();
-            var danhSachDienThoai = _scenarioService.SortByAttributes(_dienThoaiList, "Code", ascending);
-            Console.WriteLine("Danh sách đã được sắp xếp theo mã điện thoại.");
-            PrintPhoneList(danhSachDienThoai);
+            var listPhone = _scenarioService.SortByAttributes(_dienThoaiList, "Code", ascending);
+            if (listPhone != null)
+            {
+                Console.WriteLine("Danh sách đã được sắp xếp theo mã điện thoại.");
+                PrintPhoneList(listPhone);
+                return listPhone;
+            }
+            return new SinglyLinkedList<Phone>();
+
         }
 
         // 4.2 Sắp xếp theo tên điện thoại
-        public void SortByName()
+        public SinglyLinkedList<Phone> SortByName()
         {
             var ascending = ValidateSortOrder();
-            var danhSachDienThoai = _scenarioService.SortByAttributes(_dienThoaiList, "Name", ascending);
-            Console.WriteLine("Danh sách đã được sắp xếp theo tên điện thoại.");
-            PrintPhoneList(danhSachDienThoai);
+            var listPhone = _scenarioService.SortByAttributes(_dienThoaiList, "Name", ascending);
+            if (listPhone != null)
+            {
+                Console.WriteLine("Danh sách đã được sắp xếp theo tên điện thoại.");
+                PrintPhoneList(listPhone);
+
+            }
+            return new SinglyLinkedList<Phone>();
         }
 
         // 4.3 Sắp xếp theo hãng điện thoại
-        public void SortByBrand()
+        public SinglyLinkedList<Phone> SortByBrand()
         {
             var ascending = ValidateSortOrder();
-            var danhSachDienThoai = _scenarioService.SortByAttributes(_dienThoaiList, "Name", ascending);
-            Console.WriteLine("Danh sách đã được sắp xếp theo hãng điện thoại.");
-            PrintPhoneList(danhSachDienThoai);
+            var listPhone = _scenarioService.SortByAttributes(_dienThoaiList, "Name", ascending);
+            if (listPhone != null)
+            {
+                Console.WriteLine("Danh sách đã được sắp xếp theo hãng điện thoại.");
+                PrintPhoneList(listPhone);
+            }
+            return new SinglyLinkedList<Phone>();
         }
 
         // 4.4 Sắp xếp theo RAM điện thoại
-        public void SortByRAM()
+        public SinglyLinkedList<Phone> SortByRAM()
         {
             var ascending = ValidateSortOrder();
-            var danhSachDienThoai = _scenarioService.SortByAttributes(_dienThoaiList, "RAM", ascending);
-            Console.WriteLine("Danh sách đã được sắp xếp theo RAM điện thoại.");
-            PrintPhoneList(danhSachDienThoai);
+            var listPhone = _scenarioService.SortByAttributes(_dienThoaiList, "RAM", ascending);
+            if (listPhone != null)
+            {
+                Console.WriteLine("Danh sách đã được sắp xếp theo RAM điện thoại.");
+                PrintPhoneList(listPhone);
+            }
+            return new SinglyLinkedList<Phone>();
+
         }
 
         #endregion
@@ -415,68 +443,75 @@ namespace MobilePhoneSalesManagement.Services.Implements
         #region Min/Max 
 
         // Tìm phần tử điện thoại có giá trị lớn nhất theo Giá
-        public void FindMaxPrice()
+        public Phone? FindMaxPrice()
         {
             var maxDienThoai = _scenarioService.FindMaxByAttributes(_dienThoaiList, "Price");
             Console.WriteLine($"Điện thoại có giá trị lớn nhất theo Giá:");
             PrintPhone(maxDienThoai);
-
+            return maxDienThoai;
         }
 
         // Tìm phần tử điện thoại có giá trị nhỏ nhất theo Giá
-        public void FindMinPrice()
+        public Phone? FindMinPrice()
         {
             var minDienThoai = _scenarioService.FindMinByAttributes(_dienThoaiList, "Price");
             Console.WriteLine($"Điện thoại có giá trị nhỏ nhất theo Giá:");
             PrintPhone(minDienThoai);
+            return minDienThoai;
         }
 
         // Tìm phần tử điện thoại có giá trị lớn nhất theo Số lượng tồn
-        public void FindMaxStockQuantity()
+        public Phone? FindMaxStockQuantity()
         {
             var maxDienThoai = _scenarioService.FindMaxByAttributes(_dienThoaiList, "StockQuantity");
             Console.WriteLine($"Điện thoại có số lượng tồn lớn nhất: {maxDienThoai}");
             PrintPhone(maxDienThoai);
+            return maxDienThoai;
         }
 
         // Tìm phần tử điện thoại có giá trị nhỏ nhất theo Số lượng tồn
-        public void FindMinStockQuantity()
+        public Phone? FindMinStockQuantity()
         {
             var minDienThoai = _scenarioService.FindMinByAttributes(_dienThoaiList, "StockQuantity");
             Console.WriteLine($"Điện thoại có số lượng tồn nhỏ nhất: {minDienThoai}");
             PrintPhone(minDienThoai);
+            return minDienThoai;
         }
 
         // Tìm phần tử điện thoại có giá trị lớn nhất theo RAM
-        public void FindMaxRAM()
+        public Phone? FindMaxRAM()
         {
             var maxDienThoai = _scenarioService.FindMaxByAttributes(_dienThoaiList, "RAM");
             Console.WriteLine($"Điện thoại có RAM lớn nhất: {maxDienThoai}");
             PrintPhone(maxDienThoai);
+            return maxDienThoai;
         }
 
         // Tìm phần tử điện thoại có giá trị nhỏ nhất theo RAM
-        public void FindMinRAM()
+        public Phone? FindMinRAM()
         {
             var minDienThoai = _scenarioService.FindMinByAttributes(_dienThoaiList, "RAM");
             Console.WriteLine($"Điện thoại có RAM nhỏ nhất: {minDienThoai}");
             PrintPhone(minDienThoai);
+            return minDienThoai;
         }
 
         // Tìm phần tử điện thoại có giá trị lớn nhất theo Dung lượng lưu trữ
-        public void FindMaxStorageCapacity()
+        public Phone? FindMaxStorageCapacity()
         {
             var maxDienThoai = _scenarioService.FindMaxByAttributes(_dienThoaiList, "StorageCapacity");
             Console.WriteLine($"Điện thoại có dung lượng lưu trữ lớn nhất: {maxDienThoai}");
             PrintPhone(maxDienThoai);
+            return maxDienThoai;
         }
 
         // Tìm phần tử điện thoại có giá trị nhỏ nhất theo Dung lượng lưu trữ
-        public void FindMinStorageCapacity()
+        public Phone? FindMinStorageCapacity()
         {
             var minDienThoai = _scenarioService.FindMinByAttributes(_dienThoaiList, "StorageCapacity");
             Console.WriteLine($"Điện thoại có dung lượng lưu trữ nhỏ nhất: {minDienThoai}");
             PrintPhone(minDienThoai);
+            return minDienThoai;
         }
 
 
@@ -485,31 +520,34 @@ namespace MobilePhoneSalesManagement.Services.Implements
         #region Tính tổng, trung bình, điếm
 
         // Tính tổng số lượng tồn kho theo hãng
-        public void CountPhonesByBrand()
+        public int CountPhonesByBrand()
         {
             Console.Write("Nhập hãng điện thoại cần điếm: ");
             string hang = Console.ReadLine();
             var count = _scenarioService.CountByAttributes(_dienThoaiList, "Brand", hang);
             Console.WriteLine($"\n Có {count} điện thoại của hãng diên thoại {hang}");
+            return count;
         }
         // Tính tổng số lượng tồn kho theo hãng
-        public void TotalStockQuantityByBrand()
+        public int TotalStockQuantityByBrand()
         {
             Console.Write("Nhập hãng điện thoại tính tổng số lượng tồn: ");
             string hang = Console.ReadLine();
             var sum = _scenarioService.SumByAttributes(_dienThoaiList, "Brand", hang, "StockQuantity");
             Console.WriteLine($"\n Có {sum} điện thoại tồn kho của hãng diên thoại {hang}");
+            return sum;
         }
         // Tính trung bình giá theo hãng
-        public void CalculateAveragePriceByBrand()
+        public double CalculateAveragePriceByBrand()
         {
             Console.Write("Nhập tên hãng cần tính trung bình giá: ");
             string hang = Console.ReadLine();
             var average = _scenarioService.AverageByAttributes(_dienThoaiList, "Brand", hang, "Price");
             Console.WriteLine($"\n Giá trung bình của điện thoại hãng \"{hang}\" là: {average:N0} VNĐ");
+            return average;
         }
         // Điếm số lượng điện thoại theo khoảng giá
-        public void CountPhonesByPriceRange()
+        public int CountPhonesByPriceRange()
         {
             double giaMinTrieu;
             while (true)
@@ -531,9 +569,10 @@ namespace MobilePhoneSalesManagement.Services.Implements
 
             var count = _scenarioService.CountByRange(_dienThoaiList, "Price", giaMinTrieu, giaMaxTrieu);
             Console.WriteLine($"\n Có {count} điện thoại trong khoảng giá {giaMinTrieu} – {giaMaxTrieu} triệu.");
+            return count;
         }
         // Điếm số lượng điện thoại theo khoảng RAM
-        public void CountPhonesByRAMRange()
+        public int CountPhonesByRAMRange()
         {
             int ramMin;
             while (true)
@@ -554,6 +593,7 @@ namespace MobilePhoneSalesManagement.Services.Implements
 
             var count = _scenarioService.CountByRange(_dienThoaiList, "RAM", ramMin, ramMax);
             Console.WriteLine($"\n Có {count} điện thoại trong khoảng RAM {ramMin} GB – {ramMax} GB.");
+            return count;
         }
 
         #endregion
@@ -563,13 +603,13 @@ namespace MobilePhoneSalesManagement.Services.Implements
         /// <summary>
         /// Thống kê số lượng model theo từng hãng
         /// </summary>
-        public void GroupStatisticsByBrand()
+        public Dictionary<string, int> GroupStatisticsByBrand()
         {
             var thongKe = _scenarioService.CountByGroup(_dienThoaiList, "Brand");
             if (thongKe == null || thongKe.Count == 0)
             {
                 Console.WriteLine(" Không có dữ liệu để thống kê.");
-                return;
+                return new Dictionary<string, int>();
             }
 
             Console.WriteLine("=== Số lượng model theo từng hãng:");
@@ -581,18 +621,19 @@ namespace MobilePhoneSalesManagement.Services.Implements
             {
                 Console.WriteLine("{0,-15} | {1,5}", kv.Key, kv.Value);
             }
+            return thongKe;
         }
 
         /// <summary>
         /// Thống kê tổng giá trị tồn kho theo từng hãng
         /// </summary>
-        public void StockValueStatisticsByBrand()
+        public Dictionary<string, double> StockValueStatisticsByBrand()
         {
             var thongKe = _scenarioService.SumByGroup(_dienThoaiList, "Brand", "Price");
             if (thongKe == null || thongKe.Count == 0)
             {
                 Console.WriteLine(" Không có dữ liệu để thống kê.");
-                return;
+                return new Dictionary<string, double>();
             }
             Console.WriteLine("=== Tổng giá trị tồn kho theo từng hãng:");
             Console.WriteLine("-------------------------------");
@@ -602,19 +643,21 @@ namespace MobilePhoneSalesManagement.Services.Implements
             {
                 Console.WriteLine("{0,-15} | {1,10:N0}", kv.Key, kv.Value);
             }
+            return thongKe;
+
         }
 
         /// <summary>
         /// Thống kê điện thoại sắp hết hàng theo từng hãng
         /// </summary>
         /// <param name="nguongCanhBao"></param>
-        public void WarnLowStockPhones(int nguongCanhBao = 3)
+        public Dictionary<string, int> WarnLowStockPhones(int nguongCanhBao = 3)
         {
             var thongKe = _scenarioService.CountByGroup(_dienThoaiList, "Brand");
             if (thongKe == null || thongKe.Count == 0)
             {
                 Console.WriteLine(" Không có dữ liệu để thống kê.");
-                return;
+                return new Dictionary<string, int>();
             }
             Console.WriteLine("=== Số lượng điện thoại sắp hết hàng theo từng hãng:");
             Console.WriteLine("-------------------------------");
@@ -627,6 +670,8 @@ namespace MobilePhoneSalesManagement.Services.Implements
                     Console.WriteLine("{0,-15} | {1,5}", kv.Key, kv.Value);
                 }
             }
+            return thongKe;
+
         }
 
         /// Thống kê điện thoại sắp hết hàng theo từng hãng
@@ -634,26 +679,31 @@ namespace MobilePhoneSalesManagement.Services.Implements
         /// <summary>
         /// Tính phần trăm tồn kho theo từng hãng
         /// </summary>
-        public void StockPercentageStatisticsByBrand()
+        public Dictionary<string, double> StockPercentageStatisticsByBrand()
         {
-            var tonKhoTheoHang = TinhPhanTramTonKhoTheoHang(_dienThoaiList, "Brand", "StockQuantity");
-
+            var thongKe = TinhPhanTramTonKhoTheoHang(_dienThoaiList, "Brand", "StockQuantity");
+            if (thongKe == null || thongKe.Count == 0)
+            {
+                Console.WriteLine(" Không có dữ liệu để thống kê.");
+                return new Dictionary<string, double>();
+            }
             Console.WriteLine(" Tỷ lệ phần trăm tồn kho theo hãng:");
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("{0,-15} | {1,8}%", "Hãng", "Tỷ lệ");
             Console.WriteLine("-------------------------------------------");
 
-            foreach (var kv in tonKhoTheoHang)
+            foreach (var kv in thongKe)
             {
                 Console.WriteLine("{0,-15} | {1,8:N2}%", kv.Key, kv.Value);
             }
+            return thongKe;
         }
 
         /// <summary>
         /// Phương thức này yêu cầu người dùng nhập giá tối thiểu và tối đa (triệu VND) để lọc các điện thoại theo giá.
         /// Sau khi nhập các giá trị hợp lệ, phương thức sẽ sử dụng `FilterByRange` để lọc danh sách điện thoại theo phạm vi giá và in ra danh sách điện thoại thỏa mãn điều kiện.
         /// </summary>
-        public void GroupStatisticsByPriceRange()
+        public SinglyLinkedList<Phone> GroupStatisticsByPriceRange()
         {
             double giaMinTrieu;
             while (true)
@@ -671,8 +721,13 @@ namespace MobilePhoneSalesManagement.Services.Implements
                     break;
                 Console.WriteLine("Giá trị không hợp lệ. Vui lòng nhập lại.");
             }
-            var danhSachDienThoai = _scenarioService.FilterByRange(_dienThoaiList, "Price", giaMinTrieu, giaMaxTrieu);
-            PrintPhoneList(danhSachDienThoai);
+            var listPhone = _scenarioService.FilterByRange(_dienThoaiList, "Price", giaMinTrieu, giaMaxTrieu);
+            if (listPhone != null)
+            {
+                PrintPhoneList(listPhone);
+                return listPhone;
+            }
+            return new SinglyLinkedList<Phone>();
         }
 
         #endregion

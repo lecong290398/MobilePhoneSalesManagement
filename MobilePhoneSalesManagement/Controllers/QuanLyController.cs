@@ -61,14 +61,15 @@ namespace MobilePhoneSalesManagement.Controllers
                 Console.Clear();
                 Console.WriteLine("=== MENU QUẢN LÝ NHÂN VIÊN ===");
                 Console.WriteLine("1. Thêm nhân viên");
-                Console.WriteLine("2. Sửa thông tin nhân viên");
-                Console.WriteLine("3. Xóa nhân viên");
-                Console.WriteLine("4. Tìm kiếm nhân viên");
-                Console.WriteLine("5. Sắp xếp nhân viên");
-                Console.WriteLine("6. Tìm MIN/MAX");
-                Console.WriteLine("7. Tính tổng, trung bình, điếm");
-                Console.WriteLine("8. Thống kê");
-                Console.WriteLine("9. Thêm dữ liệu mẫu 15 item");
+                Console.WriteLine("2. In danh sách nhân viên");
+                Console.WriteLine("3. Sửa thông tin nhân viên");
+                Console.WriteLine("4. Xóa nhân viên");
+                Console.WriteLine("5. Tìm kiếm nhân viên");
+                Console.WriteLine("6. Sắp xếp nhân viên");
+                Console.WriteLine("7. Tìm MIN/MAX");
+                Console.WriteLine("8. Tính tổng, trung bình, điếm");
+                Console.WriteLine("9. Thống kê");
+                Console.WriteLine("10. Thêm dữ liệu mẫu 15 item");
                 Console.WriteLine("0. Thoát");
                 Console.Write("Chọn chức năng: ");
                 string choice = Console.ReadLine();
@@ -79,27 +80,30 @@ namespace MobilePhoneSalesManagement.Controllers
                         _employeeService.AddEmployee();
                         break;
                     case "2":
-                        _employeeService.EditEmployee();
+                        _employeeService.ReadEmployeeFromFile();
                         break;
                     case "3":
-                        _employeeService.DeleteEmployeeByModel();
+                        _employeeService.EditEmployee();
                         break;
                     case "4":
-                        SearchEmployee();
+                        _employeeService.DeleteEmployeeByModel();
                         break;
                     case "5":
-                        SortEmployee();
+                        SearchEmployee();
                         break;
                     case "6":
-                        TimMinMaxNhanVien();
+                        SortEmployee();
                         break;
                     case "7":
-                        TinhTongTrungBinhDiemNhanVien();
+                        TimMinMaxNhanVien();
                         break;
                     case "8":
-                        ThongKeNhanVien();
+                        TinhTongTrungBinhDiemNhanVien();
                         break;
                     case "9":
+                        ThongKeNhanVien();
+                        break;
+                    case "10":
                         _employeeService.AddSampleData();
                         break;
                     case "0":

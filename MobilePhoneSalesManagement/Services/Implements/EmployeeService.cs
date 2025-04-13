@@ -207,20 +207,20 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
             // Hiển thị tiêu đề
             Console.WriteLine("\n=== DANH SÁCH NHÂN VIÊN ===");
-            Console.WriteLine(new string('-', 110));
+            Console.WriteLine(new string('-', 200));
             Console.WriteLine(
                 "Id".PadRight(10) +
                 "Tên".PadRight(25) +
                 "Ngày Sinh".PadRight(15) +
-                "Chức Vụ".PadRight(15) +
+                "Chức Vụ".PadRight(25) +
                 "Lương".PadRight(15) +
-                "Địa Chỉ".PadRight(20) +
-                "Số nhân viên".PadRight(15) +
+                "Địa Chỉ".PadRight(50) +
+                "SĐT".PadRight(15) +
                 "Email".PadRight(25) +
                 "Giới Tính".PadRight(12) +
                 "Bằng Cấp".PadRight(15)
             );
-            Console.WriteLine(new string('-', 110));
+            Console.WriteLine(new string('-', 200));
 
             var node = employeeList.Head;
             while (node != null)
@@ -231,9 +231,9 @@ namespace MobileEmployeeSalesManagement.Services.Implements
                     employee.Id.PadRight(10) +
                     employee.Name.PadRight(25) +
                     employee.BirthDate.ToShortDateString().PadRight(15) +
-                    employee.Position.PadRight(15) +
+                    employee.Position.PadRight(25) +
                     $"{employee.Salary:N0}".PadRight(15) +
-                    employee.Address.PadRight(20) +
+                    employee.Address.PadRight(50) +
                     employee.PhoneNumber.PadRight(15) +
                     employee.Email.PadRight(25) +
                     employee.Gender.PadRight(12) +
@@ -241,7 +241,7 @@ namespace MobileEmployeeSalesManagement.Services.Implements
                 );
                 node = node.Next;
             }
-            Console.WriteLine(new string('-', 110));
+            Console.WriteLine(new string('-', 200));
         }
 
 
@@ -291,16 +291,16 @@ namespace MobileEmployeeSalesManagement.Services.Implements
         /// <summary>
         /// Xóa nhân viên theo id
         /// </summary>
-        public void DeleteEmployeeByModel()
+        public Employee? DeleteEmployeeByModel()
         {
             Console.Write("Nhập id nhân viên cần xoá: ");
             string id = Console.ReadLine();
             var dataDienThoai = _scenarioService.DeleteByAttributes(_employeeList, "Id", id);
             _fileService.Delete(dataDienThoai, _filePath, "Id", id);
-
+            return dataDienThoai;
         }
 
-        public void EditEmployee()
+        public Employee? EditEmployee()
         {
             Console.Write("Nhập Id nhân viên bạn muốn chỉnh sửa: ");
             string id = Console.ReadLine();
@@ -312,6 +312,7 @@ namespace MobileEmployeeSalesManagement.Services.Implements
                 PrintEmployee(updatedEmployee);
                 _fileService.Update(updatedEmployee, "Id", id, _filePath);
             }
+            return updatedEmployee;
         }
 
         #endregion
@@ -319,7 +320,7 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
         #region Tìm kiếm 
         // Tìm kiếm theo Id
-        public void SearchById()
+        public Employee? SearchById()
         {
             Console.Write("Nhập Id nhân viên: ");
             string ma = Console.ReadLine();
@@ -329,15 +330,17 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             {
                 Console.WriteLine($"Tìm thấy nhân viên với Id : {ma} ");
                 PrintEmployee(foundDienThoai);
+                return foundDienThoai;
             }
             else
             {
                 Console.WriteLine($"X Không tìm thấy nhân viên với Id {ma} này.");
+                return null;
             }
         }
 
         // Tìm kiếm theo tên
-        public void SearchByName()
+        public SinglyLinkedList<Employee> SearchByName()
         {
             Console.Write("Nhập tên nhân viên: ");
             string ten = Console.ReadLine();
@@ -346,15 +349,17 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             {
                 Console.WriteLine($"Tìm thấy nhân viên với Tên : {ten} ");
                 PrintEmployeeList(foundEmployee);
+                return foundEmployee;
             }
             else
             {
                 Console.WriteLine($"X Không tìm thấy nhân viên với tên {ten} này.");
+                return new SinglyLinkedList<Employee>();
             }
         }
 
         // Tìm kiếm theo vị trí
-        public void SearchByPosition()
+        public SinglyLinkedList<Employee> SearchByPosition()
         {
             Console.Write("Nhập hãng nhân viên: ");
             string viTri = Console.ReadLine();
@@ -363,10 +368,12 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             {
                 Console.WriteLine($"Tìm thấy nhân viên với tên vị trí : {viTri} ");
                 PrintEmployeeList(foundEmployee);
+                return foundEmployee;
             }
             else
             {
                 Console.WriteLine($"X Không tìm thấy nhân viên với vị trí {viTri} này.");
+                return new SinglyLinkedList<Employee>();
             }
         }
 
@@ -374,39 +381,59 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
         #region Sắp xếp
 
-        public void SortById()
+        public SinglyLinkedList<Employee> SortById()
         {
             var ascending = ValidateSortOrder();
             var sortedEmployeeList = _scenarioService.SortByAttributes(_employeeList, "Id", ascending);
-            Console.WriteLine("Danh sách đã được sắp xếp theo mã nhân viên.");
-            PrintEmployeeList(sortedEmployeeList);
+            if (sortedEmployeeList != null)
+            {
+                Console.WriteLine("Danh sách đã được sắp xếp theo mã nhân viên.");
+                PrintEmployeeList(sortedEmployeeList);
+                return sortedEmployeeList;
+            }
+            return new SinglyLinkedList<Employee>();
         }
 
         // 4.2 Sắp xếp theo tên nhân viên
-        public void SortByName()
+        public SinglyLinkedList<Employee> SortByName()
         {
             var ascending = ValidateSortOrder();
             var sortedEmployeeList = _scenarioService.SortByAttributes(_employeeList, "Name", ascending);
-            Console.WriteLine("Danh sách đã được sắp xếp theo tên nhân viên.");
-            PrintEmployeeList(sortedEmployeeList);
+            if (sortedEmployeeList != null)
+            {
+                Console.WriteLine("Danh sách đã được sắp xếp theo tên nhân viên.");
+                PrintEmployeeList(sortedEmployeeList);
+                return sortedEmployeeList;
+            }
+            return new SinglyLinkedList<Employee>();
         }
 
         // Sắp xếp theo chức vụ (Position)
-        public void SortByPosition()
+        public SinglyLinkedList<Employee> SortByPosition()
         {
             var ascending = ValidateSortOrder();
             var sortedEmployeeList = _scenarioService.SortByAttributes(_employeeList, "Position", ascending);
-            Console.WriteLine("Danh sách đã được sắp xếp theo chức vụ.");
-            PrintEmployeeList(sortedEmployeeList);
+            if (sortedEmployeeList != null)
+            {
+                Console.WriteLine("Danh sách đã được sắp xếp theo chức vụ.");
+                PrintEmployeeList(sortedEmployeeList);
+            }
+            return new SinglyLinkedList<Employee>();
+
         }
 
         // Sắp xếp theo giới tính (Gender)
-        public void SortByGender()
+        public SinglyLinkedList<Employee> SortByGender()
         {
             var ascending = ValidateSortOrder();
             var sortedEmployeeList = _scenarioService.SortByAttributes(_employeeList, "Gender", ascending);
-            Console.WriteLine("Danh sách đã được sắp xếp theo giới tính.");
-            PrintEmployeeList(sortedEmployeeList);
+            if (sortedEmployeeList != null)
+            {
+                Console.WriteLine("Danh sách đã được sắp xếp theo giới tính.");
+                PrintEmployeeList(sortedEmployeeList);
+            }
+            return new SinglyLinkedList<Employee>();
+
         }
 
 
@@ -415,33 +442,37 @@ namespace MobileEmployeeSalesManagement.Services.Implements
         #region Min/Max
 
         // Tìm phần tử nhân viên có lương cao nhất
-        public void FindMaxSalary()
+        public Employee? FindMaxSalary()
         {
             var maxEmployee = _scenarioService.FindMaxByAttributes(_employeeList, "Salary");
             Console.WriteLine($"Nhân viên có lương cao nhất:");
             PrintEmployee(maxEmployee);
+            return maxEmployee;
         }
         // Tìm phần tử nhân viên có lương thấp nhất
-        public void FindMinSalary()
+        public Employee? FindMinSalary()
         {
             var minEmployee = _scenarioService.FindMinByAttributes(_employeeList, "Salary");
             Console.WriteLine($"Nhân viên có lương thấp nhất:");
             PrintEmployee(minEmployee);
+            return minEmployee;
         }
 
         // Tìm phần tử nhân viên có tuổi cao nhất
-        public void FindMaxAge()
+        public Employee? FindMaxAge()
         {
             var maxAgeEmployee = _scenarioService.FindMaxByAttributes(_employeeList, "Age");
             Console.WriteLine($"Nhân viên có tuổi cao nhất:");
             PrintEmployee(maxAgeEmployee);
+            return maxAgeEmployee;
         }
         // Tìm phần tử nhân viên có tuổi thấp nhất
-        public void FindMinAge()
+        public Employee? FindMinAge()
         {
             var minAgeEmployee = _scenarioService.FindMinByAttributes(_employeeList, "Age");
             Console.WriteLine($"Nhân viên có tuổi thấp nhất:");
             PrintEmployee(minAgeEmployee);
+            return minAgeEmployee;
         }
 
 
@@ -449,7 +480,7 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
         #region  Tính tổng, trung bình, điếm
 
-        public void CountEmployeesByPosition()
+        public int CountEmployeesByPosition()
         {
             // Nhập vị trí (chức vụ) cần đếm
             Console.Write("Nhập vị trí (chức vụ) nhân viên cần đếm: ");
@@ -460,9 +491,10 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
             // In ra kết quả đếm
             Console.WriteLine($"\nCó {count} nhân viên ở vị trí {position}");
+            return count;
         }
 
-        public void TotalByEducation()
+        public int TotalByEducation()
         {
             Console.Write("Nhập bằng cấp cần tính tổng số lượng: ");
             string education = Console.ReadLine();
@@ -471,9 +503,10 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             var sum = _scenarioService.SumByAttributes(_employeeList, "Education", education, "Salary");
 
             Console.WriteLine($"\nTổng lương của nhân viên có bằng cấp {education} là {sum:N0}");
+            return sum;
         }
 
-        public void CalculateAverageAgeByGender()
+        public double CalculateAverageAgeByGender()
         {
             // Nhập giới tính cần tính trung bình tuổi
             Console.Write("Nhập giới tính cần tính trung bình tuổi: ");
@@ -484,9 +517,10 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
             // In kết quả
             Console.WriteLine($"\nTuổi trung bình của nhân viên giới tính \"{gender}\" là: {averageAge:N0} tuổi");
+            return averageAge;
         }
 
-        public void CountEmployeesByGender()
+        public int CountEmployeesByGender()
         {
             // Nhập giới tính cần đếm
             Console.Write("Nhập giới tính cần đếm (Nam/Nữ/Khác): ");
@@ -497,9 +531,10 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
             // In kết quả
             Console.WriteLine($"\nCó {count} nhân viên giới tính {gender}");
+            return count;
         }
 
-        public void CountEmployeesByEducation()
+        public int CountEmployeesByEducation()
         {
             // Nhập học vấn cần đếm
             Console.Write("Nhập học vấn cần đếm (Cử nhân/Thạc sĩ/Tiến sĩ): ");
@@ -510,13 +545,14 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
             // In kết quả
             Console.WriteLine($"\nCó {count} nhân viên có học vấn {education}");
+            return count;
         }
 
         #endregion
 
         #region  Thống kê 
 
-        public void GroupStatisticsByGender()
+        public Dictionary<string, int> GroupStatisticsByGender()
         {
             // Sử dụng phương thức CountByGroup để nhóm nhân viên theo giới tính và đếm số lượng trong mỗi nhóm
             var thongKe = _scenarioService.CountByGroup(_employeeList, "Gender");
@@ -524,7 +560,7 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             if (thongKe == null || thongKe.Count == 0)
             {
                 Console.WriteLine("Không có dữ liệu để thống kê.");
-                return;
+                return new Dictionary<string, int>();
             }
 
             // In ra tiêu đề và các thông tin thống kê
@@ -538,9 +574,10 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             {
                 Console.WriteLine("{0,-15} | {1,5}", kv.Key, kv.Value);
             }
+            return thongKe;
         }
 
-        public void WarnEmployeesNearRetirement()
+        public SinglyLinkedList<Employee> WarnEmployeesNearRetirement()
         {
             // Đặt tuổi nghỉ hưu cho nam và nữ
             int retirementAgeForMen = 60;
@@ -551,7 +588,7 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             if (_employeeList.Head == null)
             {
                 Console.WriteLine("Không có dữ liệu để thống kê.");
-                return;
+                return new SinglyLinkedList<Employee>();
             }
 
             // Lọc nhân viên gần đến tuổi nghỉ hưu
@@ -577,7 +614,7 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             if (employeesNearRetirement.Head == null)
             {
                 Console.WriteLine("Không có nhân viên sắp hết tuổi lao động.");
-                return;
+                return new SinglyLinkedList<Employee>();
             }
 
             // In thông tin nhân viên gần đến tuổi nghỉ hưu
@@ -596,9 +633,10 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             }
 
             Console.WriteLine("---------------------------------------------------------");
+            return employeesNearRetirement;
         }
 
-        public void GroupStatisticsByEducation()
+        public Dictionary<string, int> GroupStatisticsByEducation()
         {
             // Sử dụng phương thức CountByGroup để nhóm nhân viên theo bằng cấp và đếm số lượng trong mỗi nhóm
             var thongKe = _scenarioService.CountByGroup(_employeeList, "Education");
@@ -606,7 +644,7 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             if (thongKe == null || thongKe.Count == 0)
             {
                 Console.WriteLine("Không có dữ liệu để thống kê.");
-                return;
+                return new Dictionary<string, int>();
             }
 
             // In ra tiêu đề và các thông tin thống kê
@@ -620,25 +658,32 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             {
                 Console.WriteLine("{0,-15} | {1,5}", kv.Key, kv.Value);
             }
+            return thongKe;
         }
 
-        public void PercentageStatisticsByGender()
+        public Dictionary<string, double> PercentageStatisticsByGender()
         {
-            var genderPercentage = TinhPhanTramTheoThuocTinh(_employeeList, "Gender");
+            var thongKe = TinhPhanTramTheoThuocTinh(_employeeList, "Gender");
 
+            if (thongKe == null || thongKe.Count == 0)
+            {
+                Console.WriteLine("Không có dữ liệu để thống kê.");
+                return new Dictionary<string, double>();
+            }
             // In kết quả
             Console.WriteLine("Tỷ lệ phần trăm nhân viên theo giới tính:");
             Console.WriteLine("-----------------------------------------");
             Console.WriteLine("{0,-10} | {1,8}%", "Giới tính", "Tỷ lệ");
             Console.WriteLine("-----------------------------------------");
 
-            foreach (var kvp in genderPercentage)
+            foreach (var kvp in thongKe)
             {
                 Console.WriteLine("{0,-10} | {1,8:N2}%", kvp.Key, kvp.Value);
             }
+            return thongKe;
         }
 
-        public void GroupStatisticsBySalary()
+        public SinglyLinkedList<Employee> GroupStatisticsBySalary()
         {
             double salaryMin;
             while (true)
@@ -660,9 +705,13 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
             // Lọc nhân viên theo khoảng lương nhập vào
             var filteredEmployees = _scenarioService.FilterByRange(_employeeList, "Salary", salaryMin, salaryMax);
-
-            // In danh sách nhân viên sau khi lọc
-            PrintEmployeeList(filteredEmployees);
+            if (filteredEmployees != null)
+            {
+                // In danh sách nhân viên sau khi lọc
+                PrintEmployeeList(filteredEmployees);
+                return filteredEmployees;
+            }
+            return new SinglyLinkedList<Employee>();
         }
 
         #endregion
