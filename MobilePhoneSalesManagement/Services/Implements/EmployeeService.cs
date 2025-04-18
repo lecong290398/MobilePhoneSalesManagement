@@ -256,32 +256,32 @@ namespace MobileEmployeeSalesManagement.Services.Implements
 
             // In tiêu đề
             Console.WriteLine(
-                "Id".PadRight(10) +
-                "Tên".PadRight(25) +
-                "Ngày Sinh".PadRight(15) +
-                "Chức Vụ".PadRight(15) +
-                "Lương".PadRight(15) +
-                "Địa Chỉ".PadRight(20) +
-                "Số nhân viên".PadRight(15) +
-                "Email".PadRight(25) +
-                "Giới Tính".PadRight(12) +
-                "Bằng Cấp".PadRight(15)
-            );
+              "Id".PadRight(10) +
+              "Tên".PadRight(25) +
+              "Ngày Sinh".PadRight(15) +
+              "Chức Vụ".PadRight(25) +
+              "Lương".PadRight(15) +
+              "Địa Chỉ".PadRight(50) +
+              "SĐT".PadRight(15) +
+              "Email".PadRight(25) +
+              "Giới Tính".PadRight(12) +
+              "Bằng Cấp".PadRight(15)
+          );
             Console.WriteLine(new string('-', 110));
 
             // In thông tin của nhân viên
             Console.WriteLine(
-                employee.Id.PadRight(10) +
-                employee.Name.PadRight(25) +
-                employee.BirthDate.ToShortDateString().PadRight(15) +
-                employee.Position.PadRight(15) +
-                $"{employee.Salary:N0}".PadRight(15) +
-                employee.Address.PadRight(20) +
-                employee.PhoneNumber.PadRight(15) +
-                employee.Email.PadRight(25) +
-                employee.Gender.PadRight(12) +
-                employee.Education.PadRight(15)
-            );
+                    employee.Id.PadRight(10) +
+                    employee.Name.PadRight(25) +
+                    employee.BirthDate.ToShortDateString().PadRight(15) +
+                    employee.Position.PadRight(25) +
+                    $"{employee.Salary:N0}".PadRight(15) +
+                    employee.Address.PadRight(50) +
+                    employee.PhoneNumber.PadRight(15) +
+                    employee.Email.PadRight(25) +
+                    employee.Gender.PadRight(12) +
+                    employee.Education.PadRight(15)
+                );
 
             // In dòng phân cách
             Console.WriteLine(new string('-', 110));
@@ -325,7 +325,7 @@ namespace MobileEmployeeSalesManagement.Services.Implements
             Console.Write("Nhập Id nhân viên: ");
             string ma = Console.ReadLine();
             // Tìm kiếm đối tượng theo Id
-            var foundDienThoai = _scenarioService.SearchObjectByAttribute(_employeeList, "Code", ma);
+            var foundDienThoai = _scenarioService.SearchObjectByAttribute(_employeeList, "Id", ma);
             if (foundDienThoai != null)
             {
                 Console.WriteLine($"Tìm thấy nhân viên với Id : {ma} ");
